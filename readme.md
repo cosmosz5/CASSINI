@@ -92,7 +92,7 @@ At the moment, <mark>test.py</mark> finishes in a debug mode. To get out of it, 
 
 ### Python modules for CASSINI/LASSO
 
-The main module to run the code is CS_JWST_v1.py. This script defines the input parameters and invoke the necesary code to run the compressed sensins imaging. To run the code on CASSINI/LASSO it is necessary to have the DATABASE of ring models for the dictionary to work. A part of this database is included in the repository. However, due to space resctictions on GitHub, the complete version of the DATABASE can be found in the this link The user can modify this script to adapt it to his/her necessities. The user can run it on the Terminal by typing: 
+The main module to run the code is CS_JWST_v1.py. This script defines the input parameters and invoke the necesary code to run the compressed sensins imaging. To run the code on CASSINI/LASSO it is necessary to have the DATABASE of ring models for the dictionary to work. A part of this database is included in the repository. However, due to space resctictions on GitHub, the complete version of the DATABASE can be found in the this [link](https://www.dropbox.com/sh/mtadpwbpns6nsvf/AABYHEQiMpuWPGvMvLqVLACVa?dl=0). The user can modify this script to adapt it to his/her necessities. The user can run it on the Terminal by typing: 
 
 ``` bash
 >> python CS_JWST_v1.py
