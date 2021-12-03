@@ -1,7 +1,7 @@
 # Welcome to CASSINI - A project to develop image reconstruction tools based con Compressed sensing an Neural Networks 
 
 <figure markdown> 
-  ![Dummy image2](disk1.png){ width="800" height="400"}
+  ![Dummy image2](im/disk1.png){ width="800" height="400"}
 </figure>
 
 ## The project 
