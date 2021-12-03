@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <script>
+	// Hack for scrolling window when linking to anchor tag with fixed nav header
+        var shiftWindow = function() { scrollBy(0, -75) };
+        window.addEventListener("hashchange", shiftWindow);
+        function load() { if (window.location.hash) shiftWindow(); }
+      </script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Compressed Sensing for SAM - CASSINI</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/http.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../js/base.js"></script> 
+    </head>
+
+    <body class="">
+
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	<div class="container">
+	<a class="navbar-brand" href="..">CASSINI</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse">
+          <!-- Main navigation -->
+          <nav class="nav">
+            <ul class="navbar-nav">
+              <li >
+                <a class="nav-link" href="..">Home</a>
+              </li>
+              <li class="active">
+                <a class="nav-link" href="./">Compressed Sensing for SAM</a>
+              </li>
+              <li >
+                <a class="nav-link" href="../cs_pca/">Compressed Sensing PCA</a>
+              </li>
+            </ul>
+          </nav>
+
+          <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+		<i class="fa fa-search"></i> Search
+              </a>
+            </li>
+          </ul>
+	</div>
+	</div>
+      </nav><div id="content" class="container">
+        
+      <div class="row">
+        <div class="col-md-9" role="main">
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    
+    <li class="breadcrumb-item active" aria-current="page">Compressed Sensing for SAM</li>
+  </ol>
+</nav>
+
+
+<h1 id="this-repository-includes-software-to-recover-infrared-interferometric-images-based-on-compressed-sensing-cassinilasso-and-cassinisampip-v10">This repository includes software to recover infrared interferometric images based on Compressed Sensing (CASSINI/LASSO and CASSINI/SAMPip V1.0)</h1>
+<h2 id="link-to-the-github-repository-with-the-code-click-here">Link to the GitHub repository with the code, click <a href="https://github.com/cosmosz5/CASSINI/tree/develop">HERE</a></h2>
+<h2 id="1-brief-introduction-to-compressed-sensing">1 Brief Introduction to Compressed Sensing</h2>
+<p align="justify">
+Compressed Sensing (CS) allows us to recover a signal with less samples that the ones established from the Nyquist/Shannon theorem (see e.g. <sup>1-3</sup>). For the technique to work, the signal must be sparse and compressible on a given basis. It means that the signal can be represented by a linear combination of functions with a small number of non-zero coefficients. In CS, a set of measurements, <strong>y</strong>, of a given signal, <strong>x</strong>, can be encoded by a multiplication of the matrices <strong>&Phi;</strong>, <strong>&Psi;</strong>, and the sparse vector <strong>&alpha;</strong>. <strong>&Psi;</strong> is the transformation basis where the full signal, <strong>x</strong>, is sparse, and only a few coefficients in the vector <strong>&alpha;</strong> are non-zero. <strong>&Phi;</strong> is, thus, the system of measurements under which the data are taken. For a visual representation of the matrices involved in CS see Fig. 1. It is important to remark that the number of measurements in <strong>y</strong> is considerably smaller than the number of features/columns in  in <strong>&Psi;</strong>, therefore, the inverse problem to find <strong>&alpha;</strong> is "ill-posed". CS establishes that if the product &Theta; = <strong>&Phi;&Psi;</strong> satisfies the Restricted Isometry Property (RIP)<sup>2, 4</sup>, we will be able to recover the signal from the sub-sampled measurements. Therefore, compressed Sensing offers us a framework to solve the "ill-posed" inverse problem by a regularized optimization, using as prior the sparsity of &alpha; and/or the degree of compressibility of the signal. 
+</p>
+
+<p align="justify">
+This repository includes code to recover infrared interferometric images using CS from simulated Aperture Masking data. The Aperture Masking data is simulated as expected to be recorded by the near-infrared imager NIRISS on-board of the James Webb Space Telescope (JWST).
+
+</p>
+
+<figure>
+<p><img alt="Dummy image" height="400" src="../Images/CS_1_v2.png" width="800" />
+  </p>
+<figcaption>Fig 1. Schematic Representation of the Compressed Sensing algorithm </figcaption>
+</figure>
+<h2 id="2-james-webb-space-telescope-simulations">2. James-Webb Space Telescope Simulations</h2>
+<p align="justify">
+NIRISS (Near Infrared Imager and Slitless Spectrograph) is an infrared (band-pass = 0.8 - 5μm) high-resolution camera which allows us to observe an object using Fizeau interferometry in the form of Sparse Aperture Masking (SAM). SAM is a technique which allows us to transform a telescope into an interferometer by placing a non-redundant mask with several pin-holes in the pupil plane of the telescope<sup>13</sup>. Therefore, at the image plane an interferogram is  formed  (see  Fig.   2). From  the  interferograms,  interferometric  observables  (Fourier  visibilities  and  phases, squared  visibilities  and  closure  phases)  are  extracted.   The  non-redundant  mask  on-board  of  NIRISS  has 7 pinholes, which produces 21 visibilities and 35 closure phases per snapshot.  
+</p>
+
+<p align="justify">
+We obtained the simualted data from our collaboration with the NIRISS team at the Space Telescope Science Institute (STScI). In order to reduce the interferograms of the simulatiosn, we fitted the fringes directly in the image plane using a model of the mask geometry and filter bandwidth. From this model the observables were computed using a single-value decomposition (SVD) algorithm. This method is similar to the one presented by <sup>14</sup>. To evaluate the validity of our algorithm, we compared the observables extracted with the ones obtained with ImplaneIA<sup>15</sup> and AmiCal, finding similar results.
+</p>
+
+<figure>
+<p><img alt="Dummy image2" height="200" src="../Images/SAM_diagram.png" width="800" />
+  </p>
+<figcaption>Fig 2. Simplified diagram of the principal elements of Sparse Aperture Masking interferometry. The design of the 7 pin-hole mask of NIRISS-JWST is shown on the left. The rightmost panel displays the simulation of the fringe pattern of a point source at the detector of NIRISS-JWST. </figcaption>
+</figure>
+<h2 id="3-reducing-aperture-masking-data-with-cassinisampip-v10">3. Reducing Aperture Masking data with CASSINI/SAMPip v1.0</h2>
+<p align="justify">
+To reduce the SAM data, as part of <strong>CASSINI</strong>, we developed a software called <strong>SAMPip</strong>. It is included in this repository. The software consist in a series of Python scripts to perform the reduction. We included a <mark>test.py</mark> script to load a simulated data as example for the reduction. This script setups the code according to the instrument requests. For example: 
+
+</p>
+
+<pre><code class="language-py">
+#######  The tolowing parameters are necessary to run SAMPip ##################
+mask_filename = '7holes_jwst_mask.txt' #A text file with the mask geometry
+wave = 3.828e-06 #Central wavelength of the observations (meters)
+bandwidth = 0.205e-06 #Bandwidth of the observations (meters)
+hole_size = 0.82 #Pinhole size (meters)
+imsize = 80 # Image size (pixels)
+px_scale = 65.6 #Pixel scale (pixels)
+hole_geom = 'HEXAGON' #Geometry of the pin-holes (hexagon for the JWST)
+inst = 'JWST' #Instrument to be used
+arrname = 'SIM' ## This could be DATA or SIM depending if the reduction is on real data or simulated ones
+rotation_angle = 0.0 ### In case the non-redundant mask is not propely aligned with the nominal position
+oversample = 1.0 ## Number of times to oversample the data (not tested yet)
+
+data_filename = 'sci_psf3_w1.txt' ## Text file with the list of .fits files to be reduced
+source = 'disk' ## The source name
+
+#### Automatic from here, the following command produces an oifits file with all the data reduced in an OIFITS file
+
+sim_SAMpip.simSAM_PSF (data_filename, mask_filename,  wave, bandwidth, hole_size, px_scale, imsize, hole_geom, source, inst, \
+           arrname, rotation_angle, oversample)
+</code></pre>
+<p>To reproduce the interferometric observables from the example included in this repository, it is as simple as <mark>clone</mark> SAMPip from the GitHub repository:</p>
+<pre><code class="language-bash">
+&gt;&gt; git clone https://github.com/cosmosz5/SAMPip.git
+
+</code></pre>
+<p>and then running the following command in the Terminal:</p>
+<pre><code class="language-py">
+python test.py
+
+</code></pre>
+<p>The previous command will go through the different data sets included and it will produce a series of <strong>.fits</strong> files for quality check purposes (to view the .fits files, users can use the <a href="https://sites.google.com/cfa.harvard.edu/saoimageds9" title="DS9 link">DS9 software</a>, together with the final <strong>OIFITS</strong> files. The output files are the following ones: </p>
+<pre><code class="language-markdown">
+1. CENTERED_*.fits files &gt; These are the centered input files. SAMPip does a fine adjustment of the interferogram centroid in the middle of the pixel grid (this option is not yet available but the files are produced).
+2. MODEL_interferogram_*.fits &gt; These are the models of the interferograms produced by the code. They should be quite similar to the input data files. We can use the MODEL files to inspect (quickly) visually how good is our fringe modeling (i.e., visibility extraction) 
+3. MODEL_interferogram_windowed_*.fits &gt; These are the models of the interferograms produced by the code but they are windowed. Only the valid pixels for the model extraction have values different from zero. 
+4. MODEL_residuals+*.fits &gt; These .fits files show the residuals between our fringe model and the input data.
+5. MTF.fits &gt; This .fits file includes the Mutual Trsfer Funcion of the interferogram
+6. PSF.fits &gt; This .fits file includes the model of the interferogram produced solely by the geometry of the non-redundant mask
+7. cube_bl.fits &gt; This .fits file contains the cube of the different interference pattern produce by each pair of pin-holes in the non-redundant mask. 
+8. hexa.fits &gt; This file contains the diffraction pattern of the pin-hole geometry
+9. hexagon.fits &gt; This file contains the geometry of the pin-hole mask
+10. WINDDAT_*.fits &gt; These files are the windowed input data sets used for the model extraction
+11. SIM_DATA_uncalib.*.fits &gt; These are the OFITIS files with the reduced data. They are in a standard OIFITS format and includes all the interferometric observables extracted with SAMPip. 
+
+</code></pre>
+<p align="justify">
+If different data sets are reduced, they can be combined with the <mark>oi_combine.fits</mark> python routine. It is a very simple script which  call <mark>oi_merge.fits</mark> and <mark>js_oifits.fits</mark>. Those are two routines which reads the different data sets and write a combined OIFITS file with them. <mark>oi_merge.fits</mark> and <mark>js_oifits.fits</mark> are also included in the root directory of <strong>CASSINI/SAMPip</strong>. These two routines are also used by the during the data reduction. To combine the extracted OIFITS data, it is neccesary to create a .txt file with the oifits filenames of the data to be combined. an example of the <mark>oi_combine.fits</mark> content is the following one: 
+</p>
+
+<pre><code class="language-py">
+from readcol import *
+
+cd = True 
+if cd == True:
+    import oi_merge as oi_merge
+else:
+    import oi_merge2 as oi_merges#
+import importlib
+importlib.reload(oi_merge)
+
+data = 'combine_data_tot.txt' ## Text file with the OIFITS files to be combined 
+[files] = readcol(data, twod=False)
+merged = oi_merge.oi_merge(files)
+merged.write('COMB_JWST_SAM_tot.fits') ## Output: COMBINED OIFITS file
+
+</code></pre>
+<p align="justify">
+The SAM data included as example to run the code consisted in the simulation of an inclined and asymmetric proto-planetary disk observed at three different filters (see Table 1) with the following central wavelengths:  3.8μm, 4.3μm and 4.8μm.  Given the pointing limitations of the JWST, we considered a maximum of three pointing positions at a position angle(E->N) of -10<sup>◦</sup>, 0<sup>◦</sup> and 10<sup>◦</sup>. To make the JWST/SAM simulations as realistic as possible, we included piston errors between 10 and 50 nm.  These are typical expected error values of the instrumental transfer function.  The simulated science data were calibrated with simulated interferograms of point-like objects with similar pistonerrors as the science data.  The u-v coverage employed for image reconstruction includes 318 data points (V<sup>2</sup> + Fourier phases + CPs) and combines the different simulated pointing positions and wavelengths (see Fig. 3).
+</p>
+
+<figure>
+<p><img alt="Dummy image2" height="400" src="../Images/jwst11.png" width="800" />
+  </p>
+<figcaption>Fig 3. <strong>right:</strong> u-v coverage of our JWST/SAM simulations. <strong>left:</strong> Simulated inteferogram of a proto-planetary disk as observed with the SAM mode of the JWST. </figcaption>
+</figure>
+<figure>
+<p><img alt="Dummy image2" height="200" src="../Images/niriss_filters.png" width="600" />
+  </p>
+<figcaption>Table 1. Simulated NIRISS filters. </figcaption>
+</figure>
+<h2 id="4-image-reconstruction-based-on-compressed-sening">4. Image reconstruction based on Compressed Sening</h2>
+<p align="justify">
+The code for the reconstruction is included in the sub-directory <strong>LASSO</strong> of the main <strong>CASSINI</strong> repository. To solve the image optimization problem, the python scikit-learn<sup>17</sup> library was used. More explicitly, the Least Absolute Shrinkage and Selection Operator (LASSO) algorithm<sup>18</sup> was selected. This LASSO implementation uses a regularized minimization of the following form:
+</p>
+
+<figure>
+<p><img alt="Dummy image2" height="70" src="../Images/lasso_eq.png" width="800" /></p>
+</figure>
+<p align="justify">
+where N is the total number of elements in the sampled signal, y, and λ is the value of the hyperparameter that weights the regularizer. It is important to remark that the constraint region of the l1-norm has the form of an hypercube with several corners, which ensure sparsity of &alpha; for a convex optimization problem.  This is not the case by using, for example a Ridge regression<sup>19</sup> with ‖&alpha;‖<sup>2</sup><sub>2</sub>, where the constraint region is a rotational invariant n-sphere.  This can also be interpreted as LASSO being a linear regression model with a Laplace prior distribution, with a sharp peak at its mean. In contrast, Gaussian prior distribution of coefficients in a Ridge regression<sup>20</sup> has a more soften peak around its mean.
+</p>
+
+<figure>
+<p><img alt="Dummy image2" height="600" src="../Images/diagram_lasso2.png" width="800" />
+  </p>
+<figcaption>Fig. 4 he diagram shows a visual representation of the CS LASSO implementation of our work. A Dictionary of models (<strong>&theta;</strong> = <strong>&Phi;&Psi;</strong>) is created with a group of images (<strong>&Psi;</strong>), which are transformed into the measured observables atthe simulated u-v plane (<strong>&Phi;</strong>). Then, the Dictionary is compared with the data (<strong>y</strong>) and a set of non-zero coefficients (<strong>&alpha;</strong>) are selected. This process is repeated over a given number of iterations until the best-fit reconstructed image (<strong>x</strong>) is obtained. </figcaption>
+</figure>
+<p align="justify">
+Before performing the minimization, a precomputed Dictionary (Θ) with 10<sup>4</sup> different disk-like structures was created. The random images of the disks were created  using a pixel grid of 71×71 pixels with a pixelscale of 10 milliarcseconds (mas). To transform those images into the system of measurements of our data, their Fourier transform were performed using a proprietary implementation of the regularly spaced Fast Fourier Transform (FFT) and, the observables (squared visibilities, Fourier phases and closure phases) were obtained for the sampled u-v frequencies. Together with the code in this repository, we included a sample of the dictionary build from our database of models. The code <mark>create_dict.py</mark> is an example of how can we read a set of images and transform them into the Fourier Space sampled with our data. This script imports the script called <mark>oitools.py</mark>.
+
+</p>
+
+<p align="justify"> 
+ <mark>oitools.py</mark> contains a small library of routines to perform transformations and data extraction on both, the visibility domain and the image one. One of the most interesting and, indeed, the one that is used to extract the interferometric observables from the images is <mark>oitools.compute_vis_matrix</mark>. This piece of code uses a dedicated Direct Fourier Transform to get specific amplitudes and phases from the images at the specific spatial frequencies sampled with an interferometric array. The code is the following one: 
+
+ </p>
+
+<pre><code class="language-py">
+def compute_vis_matrix(im, u, v, scale):
+    import numpy as np
+    import math
+    import pdb
+    sz = np.shape(im)
+    if sz[0] % 2 == 0:
+        x, y = np.mgrid[-np.floor(sz[1] / 2 - 1):np.floor(sz[1] / 2):sz[1] * 1j,
+               np.floor(sz[0] / 2 - 1):-np.floor(sz[0] / 2):sz[0] * 1j]
+    else:
+        x, y = np.mgrid[-np.floor(sz[1] / 2):np.floor(sz[1] / 2):sz[1] * 1j,
+               np.floor(sz[0] / 2):-np.floor(sz[0] / 2):sz[0] * 1j]
+    x = x * scale
+    y = y * scale
+    xx = x.reshape(-1)
+    yy = y.reshape(-1)
+    im = im.reshape(-1)
+    arg = -2.0 * math.pi * (u * yy + v * xx)
+    reales = im.dot(np.cos(arg))
+    imaginarios = im.dot(np.sin(arg))
+    visib = np.linalg.norm([reales, imaginarios])
+    phase_temp = np.arctan2(imaginarios, reales)
+    phase = np.rad2deg((phase_temp + np.pi) % (2 * np.pi) - np.pi)
+    return visib, phase
+
+</code></pre>
+<p align="justify"> 
+The input parameters in <mark>oitools.compute_vis_matrix</mark> are: (i) the image from which the observables are computed; (ii) the u and v coordinates of the interferometer and; (iii) the pixel scale used in the image (this input is in units of radians). 
+
+ </p>
+
+<p align="justify"> 
+<mark>create_dict.py</mark> also centered and scaled earch set of observables to have a mean equals to zero and standard deviation equals to the unity. Finally, the different observables were merged into a single column vector (or atom). The different atoms were stacked to create the different columns of the final Dictionary and stored into a python binary file. Once the Dictionary was integrated. The assembled dictionary of protoplanetary disks is included in the repository enconded into a numpy binary file. (filename = Dict3.npy)
+</p>
+
+<p align="justify"> 
+Once the Dictionary was integrated, LASSO was used to solve for the non-zero coefficients of α that fit the observables and reconstruct the image.  LASSO worked over 10<sup>3</sup> iterations with a pre-defined value of the hyperparameter λ. Figure 4 displays a schematic representation of the described algorithm.
+</p>
+
+<p align="justify"> 
+This is the main part of the code for recovering the images from the interferometric data. The code to run LASSO is called <mark>CS_JWST_v1.py</mark>. This routines uses the dictionary (in this case Dict3.npy) together with the combined data set to recover an image. The user has to modify the following entry parameters in the script: 
+</p>
+
+<pre><code class="language-py">
+oi_data = 'COMB_JWST_SAM_tot.fits'  #This is the filename of the input (COMBINED) data set
+dict_filename = 'Dict3.npy' #Dictionary filename
+input_path = ['dataset/']  # Input path for the galery of model images
+scale = 10.0 # Pixel scale of the generated images in milliarcseconds
+hyperparameter = 0.5 # Hyperparameter lambda for the LASSO minimization
+maxit = 10000 # Maximum number of iterations for the reconstruction
+output_filename = 'recovered_im_lasso.fits' #Output filename
+
+</code></pre>
+<p><strong>IMPORTANT:</strong> In case you want to run LASSO on your local machine, you need the DATABASE of models in the <mark>dataset/</mark> directory. The repository includes a copy of this DATABASE but it is partially truncated because of space in the GitHub repository. Before running the code, please download the complete DATABASE from this <a href="https://www.dropbox.com/sh/mtadpwbpns6nsvf/AABYHEQiMpuWPGvMvLqVLACVa?dl=0">Dropbox link</a> and put it inside the <mark>LASSO</mark> directory before running the code. </p>
+<p align="justify">
+The script <mark>CS_JWST_v1.py</mark> returns the recovered image in .fits format. Figure 5 shows the best-fit image obtained with our CS LASSO algorithm together with the original model image. For the example showed in this simulation, the general structure of the disk is reproduced. The reconstructed morphology shows the correct inclination and position angle. It also shows the brighter emission of the ring along the semi-major axis. The inner cavity is also clearly observed. However, the size of the semi-minor axis is larger than the one of the model image. This can be appreciated in the map of the residuals formed by subtracting the image model from the reconstructed one. Figure 6 shows that the observables are well reproduced by the reconstructed image.
+</p>
+
+<figure>
+<p><img alt="Dummy image2" height="200" src="../Images/mod_lasso_ress.png" width="800" />
+  </p>
+<figcaption>Figure 5: <strong>Left:</strong> Model image from which the simulated data were obtained. <strong>Middle:</strong> Reconstructed CS LASSO image. <strong>Right:</strong> Map of residuals. The <strong>left</strong> and <strong>right</strong> panels are normalized to the unity and the color map scale is the same for an easy comparison between the two of them. </figcaption>
+</figure>
+<figure>
+<p><img alt="Dummy image2" height="350" src="../Images/observables_001_2.png" width="800" />
+  </p>
+<figcaption>Figure 6:  Comparison between the data (black dots) and the recovered Squared visibilities and Closure Phases from the reconstructed CS LASSO images. The <strong>left</strong> panel displays the squared visibilities versus spatial frequency while the <strong>right</strong> panel shows the closure phases versus spatial frequencies. </figcaption>
+</figure>
+<p>To verify the quality of the reconstructions with the original set of observables, the repository includes the script called <mark>plot_obs.py</mark>. This piece of code produces a PNG file called "observables.png". This plot is similar to Figure 6 and it shows a comparison between the extracted obsevables from the reconstructed image and the original data. The input parameters of <mark>plot_obs.py</mark> are:</p>
+<pre><code class="language-py">
+oi_data = 'COMB_JWST_SAM_tot.fits' #Data filename
+im_rec = np.squeeze(pyfits.getdata('reconvered_im_lasso_0.001.fits')) #Recovered image filename
+wave_range = [3.0e-6, 5.0e-6] #Wavelength range of the observations
+scale = 10.0 ## Pixel scale in milliarcseconds
+</code></pre>
+<p align="justify">
+To  evaluate the quality of our reconstructions, we also generated images using two other codes available in  the  community: BSMEM<sup>22</sup> and SQUEEZE<sup>23</sup>. The first one uses maximum entropy for the regularization and a gradient descent method with a trust region for the minimization. The second one could use different types of regularizations, including sparsity (in the form of the l0-norm). For the minimization a Markov-Chain Monte-Carlo (MCMC) algorithm  is  employed.  Similar pixel scale and grid parameters between CS and the reconstructions using BSMEM and SQUEEZE were used. Figure 7 shows the  reconstructions obtained with each one of the different software. Notice that the three algorithms managed to recover the general (position angle and size) structure of the target. However, different artifacts are observed. For example, the BSMEM image shows the two brightest spots of the disk. However, it does not recover the central cavity. This can be easily explained because the Maximum Entropy enforces a smooth brightness transition between the different pixels in the image. The SQUEEZE reconstruction using the l0-norm shows a map with a ”granular” structure, which does not provide well defined loci for the maximum. This image does not show a clear cavity. We remark that the SQUEEZE image can be improved by using additional regularizers. Nevertheless, this is obtained at the cost of being slower. Also, the selection of the hyperaparameters becomes more complicated for more regularizers involved in the reconstruction. Both the SQUEEZE and BSMEM images show additional artifacts around the central source. This is not the case of the CS LASSO image, which shows a uniform background. To estimate the signal-to-noise ratio (SNR) between the peak of the emission and the noise floor of the images, we computed the mean value of the background using all the pixels outside a circular mask with a radius of 15 pixels centered at the middle of the image. The SNR values are: 3.7 x 10<sup>4</sup>, 1.0 x 10<sup>2</sup> and 0.8 x 10<sup>2</sup> for the CS LASSO, SQUEEZE and BSMEM images, respectively.  These values suggest that the CS LASSO reconstruction achieved a contrast two orders of magnitude larger than the other reconstructions.  This is particularly encouraging for the case of high-contrast observations as the ones expected with the JWST. A more detailed analysis of the contrast ratios achieved with CS will be done in a future work.
+</p>
+
+<figure>
+<p><img alt="Dummy image2" height="200" src="../Images/lasso_bsm_sq.png" width="800" />
+  </p>
+<figcaption>Figure 7: <strong>Left:</strong> Reconstructed CS LASSO image. <strong>Middle:</strong> Reconstructed SQUEEZE image. <strong>Right:</strong> Reconstructed BSMEM image.  </figcaption>
+</figure>
+<h1 id="summary">SUMMARY</h1>
+<ul>
+<li>
+<p><code>To extract observables from SAM data</code> - Run the <strong>test.py</strong> script inside the SAMpip directory. Modify the script according with the data to be reduced. A description of the parameters used for the setup is included in this webpage. </p>
+</li>
+<li>
+<p><code>To combine SAM data</code> - Run the <strong>oi_combine.py</strong> script inside the SAMpip directory. Modify the script according with the data to be combined. An oifits file is produced. A description of the parameters used for the setup is included in this webpage.</p>
+</li>
+<li>
+<p><code>To create a dictionary of structures for imaging</code> - From a given galery of images with the desired structures, use the script  <strong>create_dict.py</strong>. This code converts the images into atoms of the dictionary in the Fourier Space. For this, it uses the transformation routines included in <strong>oitools.py</strong>. The user can run <strong>create_dict.py</strong> at the root directory of the repository. This step should create a .npy binary file with the dictionary of structures to be used for the reconstruction. </p>
+</li>
+<li>
+<p><code>To recover an image</code> - With the dictionary, run <strong>CS_JWST_v1.py</strong>. An example of the input parameters is included in this webpage. This code will produce the reconstructed image. To evaluate the quality of the reconstruction, the user can con <strong>plot_obs.py</strong>, in order to produce a plot of the synthetic observables extracted from the best-reconstructed image and the dataset. </p>
+</li>
+<li>
+<p><code>Additional tools</code> - We recommed the user to explore <strong>oitools.py</strong>. This script contains a series of transformation and data handling routines that could be useful for evaluating the quality of the reconstructions and/or to vizualize the data. <strong>We expected to include a complete description of such tools in the forthcoming version of the software.</strong>  </p>
+</li>
+</ul>
+<h1 id="references">REFERENCES</h1>
+<p>[1]  Donoho, D. L., “Compressed sensing,”IEEE Transactions on information theory52(4), 1289–1306 (2006).</p>
+<p>[2]  Candes, E. J., Romberg, J. K., and Tao, T., “Stable signal recovery from incomplete and inaccurate mea-surements,”Communications on Pure and Applied Mathematics:  A Journal Issued by the Courant Instituteof Mathematical Sciences59(8), 1207–1223 (2006).</p>
+<p>[3]  Baraniuk,  R.,  Davenport,  M.,  DeVore,  R.,  and  Wakin,  M.,  “A  simple  proof  of  the  restricted  isometryproperty for random matrices,”Constructive Approximation28(3), 253–263 (2008).</p>
+<p>[4]  Candes, E. J. and Tao, T., “Decoding by linear programming,”IEEE  Transactions  on  Information  The-ory51(12), 4203–4215 (2005).</p>
+<p>[5]  Carrillo, R. E., McEwen, J. D., and Wiaux, Y., “PURIFY: a new approach to radio-interferometric imaging,”Monthly Notices of the Royal Astronomical Society439, 3591–3604 (02 2014).</p>
+<p>[6]  Pratley, L., McEwen, J. D., d’Avezac, M., Carrillo, R. E., Onose, A., and Wiaux, Y., “Robust sparse imagereconstruction of radio interferometric observations with purify,”Monthly Notices of the Royal AstronomicalSociety473, 1038–1058 (09 2017).</p>
+<p>[7]  Vijay Kartik, S., Carrillo, R. E., Thiran, J.-P., and Wiaux, Y., “A Fourier dimensionality reduction modelfor big data interferometric imaging,”Monthly  Notices  of  the  Royal  Astronomical  Society468, 2382–2400(03 2017).</p>
+<p>[8]  Wiaux,  Y.,  Jacques,  L.,  Puy,  G.,  Scaife,  A.  M.,  and  Vandergheynst,  P.,  “Compressed  sensing  imagingtechniques for radio interferometry,”Monthly Notices of the Royal Astronomical Society395(3), 1733–1742(2009).</p>
+<p>[9]  Wenger,  S.,  Magnor,  M.,  Pihlstrom,  Y.,  Bhatnagar,  S.,  and  Rau,  U.,  “Sparseri:  A  compressed  sensingframework for aperture synthesis imaging in radio astronomy,”Publications of the Astronomical Society ofthe Pacific122(897), 1367 (2010).</p>
+<p>[10]  Li, S., Mi, T., and Liu, Y., “Sparse dual frames in compressed sensing,” in [Wavelets  and  Sparsity  XIV],Papadakis, M., Ville, D. V. D., and Goyal, V. K., eds.,8138, 180 – 191, International Society for Opticsand Photonics, SPIE (2011)</p>
+<p>[11]  Doyon,  R.,  Hutchings,  J.  B.,  Beaulieu,  M.,  Albert,  L.,  Lafreniere,  D.,  Willott,  C.,  et  al.,  “The  JWSTFine  Guidance  Sensor  (FGS)  and  Near-Infrared  Imager  and  Slitless  Spectrograph  (NIRISS),”  in  [SpaceTelescopes  and  Instrumentation  2012:   Optical,  Infrared,  and  Millimeter  Wave],  Clampin,  M.  C.,  Fazio,G.  G.,  MacEwen,  H.  A.,  and  Oschmann,  Jacobus  M.,  J.,  eds.,Society  of  Photo-Optical  InstrumentationEngineers (SPIE) Conference Series8442, 84422R (Sept. 2012).</p>
+<p>[12]  Sivaramakrishnan, A., Tuthill, P. G., Ireland, M. J., Lloyd, J. P., Martinache, F., Soummer, R., Makidon,R. B., Doyon, R., Beaulieu, M., and Beichman, C. A., “Planetary system and star formation science withnon-redundant masking on JWST,” in [Techniques  and  Instrumentation  for  Detection  of  Exoplanets  IV],Shaklan,  S. B.,  ed.,Society  of  Photo-Optical  Instrumentation  Engineers  (SPIE)  Conference  Series7440,74400Y (Aug. 2009).</p>
+<p>[13]  Sanchez-Bermudez, J., Schodel, R., Alberdi, A., and Pott, J. U., “NaCo/SAM observations of sources atthe Galactic Center,” in [Journal of Physics Conference Series],Journal of Physics Conference Series372,012025 (July 2012).</p>
+<p>[14]  Lacour, S., Tuthill, P., Amico, P., Ireland, M., Ehrenreich, D., Huelamo, N., and Lagrange, A.-M., “Sparseaperture masking at the vlt-i. faint companion detection limits for the two debris disk stars hd 92945 andhd 141569,”Astronomy &amp; Astrophysics532, A72 (2011).</p>
+<p>[15]  Greenbaum, A. Z., Pueyo, L., Sivaramakrishnan, A., and Lacour, S., “An Image-plane Algorithm for JWST’sNon-redundant Aperture Mask Data,”798, 68 (Jan. 2015).</p>
+<p>[16]  Pauls, T. A., Young, J. S., Cotton, W. D., and Monnier, J. D., “A Data Exchange Standard for Optical(Visible/IR) Interferometry,”117, 1255–1262 (Nov. 2005).</p>
+<p>[17]  Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer,P.,  Weiss,  R.,  Dubourg,  V.,  Vanderplas,  J.,  Passos,  A.,  Cournapeau,  D.,  Brucher,  M.,  Perrot,  M.,  andDuchesnay,  E.,  “Scikit-learn:   Machine  learning  in  Python,”Journal  of  Machine  Learning  Research12,2825–2830 (2011).</p>
+<p>[18]  Santosa, F. and Symes, W. W., “Linear inversion of band-limited reflection seismograms,”SIAM  Journalon Scientific and Statistical Computing7(4), 1307–1330 (1986).</p>
+<p>[19]  Gruber,  M.,  [Improving  Efficiency  by  Shrinkage:   The  James–Stein  and  Ridge  Regression  Estimators],vol. 156, CRC Press (1998).</p>
+<p>[20]  Tibshirani, R., “Regression shrinkage and selection via the lasso,”Journal of the Royal Statistical Society:Series B (Methodological)58(1), 267–288 (1996).</p>
+<p>[21]  Rokach, L. and Maimon, O., [Data mining with decision trees. Theory and applications], vol. 69 (01 2008).</p>
+<p>[22]  Buscher, D., “Very high angular resolution imaging (iau symp. 158), ed. jg robertson &amp; wj tango,” (1994).</p>
+<p>[23]  Baron, F., Monnier, J. D., and Kloppenborg, B., “A novel image reconstruction software for optical/infraredinterferometry,” in [Optical and Infrared Interferometry II],7734, 77342I, International Society for Opticsand Photonics (2010).</p>
+
+<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+  <li class="last-updated-holder displayDate loading">
+    <span class="last-updated-text">Last updated:</span>
+    <time role="presentation" datetime="2018-10-25T00:00:00.000Z" data-article-date-source="ms.date"></time>
+  </li>
+<!--
+  <li class="readingTime">
+    2 minutes to read
+  </li>
+-->
+  <li class="contributors-holder">
+    <span class="contributors-text">Contributors</span>
+    <ul class="contributors" data-bi-name="contributors"></ul>
+  </li>
+</ul>
+</div>
+        <div class="col-md-3"><div class="navbar-light navbar-expand-md hidden-print sticky-top sticky-offset" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    <div id="toc-collapse" class="navbar-collapse collapse card">
+        <ul class="nav flex-column bs-sidenav">
+            <li class="nav-item main"><a class="nav-link" href="#this-repository-includes-software-to-recover-infrared-interferometric-images-based-on-compressed-sensing-cassinilasso-and-cassinisampip-v10">This repository includes software to recover infrared interferometric images based on Compressed Sensing (CASSINI/LASSO and CASSINI/SAMPip V1.0)</a></li>
+                <li class="nav-item">
+                    <a href="#link-to-the-github-repository-with-the-code-click-here" class="nav-link">Link to the GitHub repository with the code, click HERE</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#1-brief-introduction-to-compressed-sensing" class="nav-link">1 Brief Introduction to Compressed Sensing</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#2-james-webb-space-telescope-simulations" class="nav-link">2. James-Webb Space Telescope Simulations</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#3-reducing-aperture-masking-data-with-cassinisampip-v10" class="nav-link">3. Reducing Aperture Masking data with CASSINI/SAMPip v1.0</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#4-image-reconstruction-based-on-compressed-sening" class="nav-link">4. Image reconstruction based on Compressed Sening</a>
+                </li>
+            <li class="nav-item main"><a class="nav-link" href="#summary">SUMMARY</a></li>
+            <li class="nav-item main"><a class="nav-link" href="#references">REFERENCES</a></li>
+        </ul>
+    </div>
+</div></div>
+      </div>
+      </div>
+
+      <footer class="col-md-12">
+	<hr>
+	<div class="container">
+	  <p>Author - Joel Sanchez Bermudez (Instituto de Astronomia de la Universidad Nacional Autonoma de Mexico). This code has been developed with funding from the UNAM PAPIIT project IA 101220 and from the Mexico's National Council of Science and Technology (CONACyT) “Ciencia de Frontera” project 263975</p>
+	</div>
+      </footer>
+      <script>
+	var base_url = "..",
+            shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+      </script>
+      <script src="../js/base.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+      <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="h4 modal-title">Keyboard Shortcuts</p>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
