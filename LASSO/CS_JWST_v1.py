@@ -56,7 +56,7 @@ def fista(A, b, err, nvis, nt3phi, l, maxit):
 
 oi_data = 'COMB_JWST_SAM_tot.fits'
 dict_filename = 'Dict3.npy'
-input_path = ['/Users/jupiter/Desktop/dataset/']
+input_path = ['dataset/']
 input_files = readcol(input_path[0] +'ring_gauss.txt', twod=True)
 scale = 10.0 ## mas
 hyperparameter = 0.01
