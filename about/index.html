@@ -83,7 +83,7 @@
 
 
 <h1 id="this-repository-includes-software-to-recover-infrared-interferometric-images-based-on-compressed-sensing-cassinilasso-and-cassinisampip-v10">This repository includes software to recover infrared interferometric images based on Compressed Sensing (CASSINI/LASSO and CASSINI/SAMPip V1.0)</h1>
-<h2 id="link-to-the-github-repository-with-the-code-click-here">Link to the GitHub repository with the code, click <a href="https://github.com/cosmosz5/CASSINI">HERE</a></h2>
+<h2 id="link-to-the-github-repository-with-the-code-click-here">Link to the GitHub repository with the code, click <a href="https://github.com/cosmosz5/CASSINI/tree/develop">HERE</a></h2>
 <h2 id="1-brief-introduction-to-compressed-sensing">1 Brief Introduction to Compressed Sensing</h2>
 <p align="justify">
 Compressed Sensing (CS) allows us to recover a signal with less samples that the ones established from the Nyquist/Shannon theorem (see e.g. <sup>1-3</sup>). For the technique to work, the signal must be sparse and compressible on a given basis. It means that the signal can be represented by a linear combination of functions with a small number of non-zero coefficients. In CS, a set of measurements, <strong>y</strong>, of a given signal, <strong>x</strong>, can be encoded by a multiplication of the matrices <strong>&Phi;</strong>, <strong>&Psi;</strong>, and the sparse vector <strong>&alpha;</strong>. <strong>&Psi;</strong> is the transformation basis where the full signal, <strong>x</strong>, is sparse, and only a few coefficients in the vector <strong>&alpha;</strong> are non-zero. <strong>&Phi;</strong> is, thus, the system of measurements under which the data are taken. For a visual representation of the matrices involved in CS see Fig. 1. It is important to remark that the number of measurements in <strong>y</strong> is considerably smaller than the number of features/columns in  in <strong>&Psi;</strong>, therefore, the inverse problem to find <strong>&alpha;</strong> is "ill-posed". CS establishes that if the product &Theta; = <strong>&Phi;&Psi;</strong> satisfies the Restricted Isometry Property (RIP)<sup>2, 4</sup>, we will be able to recover the signal from the sub-sampled measurements. Therefore, compressed Sensing offers us a framework to solve the "ill-posed" inverse problem by a regularized optimization, using as prior the sparsity of &alpha; and/or the degree of compressibility of the signal. 
@@ -142,8 +142,8 @@ sim_SAMpip.simSAM_PSF (data_filename, mask_filename,  wave, bandwidth, hole_size
            arrname, rotation_angle, oversample)
 </code></pre>
 <p>To reproduce the interferometric observables from the example included in this repository, it is as simple as <mark>clone</mark> SAMPip from the GitHub repository:</p>
-<pre><code class="language-py">
-git clone https://github.com/cosmosz5/SAMPip.git
+<pre><code class="language-bash">
+&gt;&gt; git clone https://github.com/cosmosz5/SAMPip.git
 
 </code></pre>
 <p>and then running the following command in the Terminal:</p>
@@ -203,7 +203,7 @@ The SAM data included as example to run the code consisted in the simulation of 
 </figure>
 <h2 id="4-image-reconstruction-based-on-compressed-sening">4. Image reconstruction based on Compressed Sening</h2>
 <p align="justify">
-To solve the image optimization problem, the python scikit-learn<sup>17</sup> library was used. More explicitly, the Least Absolute Shrinkage and Selection Operator (LASSO) algorithm<sup>18</sup> was selected. This LASSO implementation uses a regularized minimization of the following form:
+The code for the reconstruction is included in the sub-directory <strong>LASSO</strong> of the main <strong>CASSINI</strong> repository. To solve the image optimization problem, the python scikit-learn<sup>17</sup> library was used. More explicitly, the Least Absolute Shrinkage and Selection Operator (LASSO) algorithm<sup>18</sup> was selected. This LASSO implementation uses a regularized minimization of the following form:
 </p>
 
 <figure>
@@ -274,13 +274,14 @@ This is the main part of the code for recovering the images from the interferome
 <pre><code class="language-py">
 oi_data = 'COMB_JWST_SAM_tot.fits'  #This is the filename of the input (COMBINED) data set
 dict_filename = 'Dict3.npy' #Dictionary filename
-input_path = ['/Users/donut/Desktop/dataset/']  # Input path for the galery of model images
+input_path = ['dataset/']  # Input path for the galery of model images
 scale = 10.0 # Pixel scale of the generated images in milliarcseconds
 hyperparameter = 0.5 # Hyperparameter lambda for the LASSO minimization
 maxit = 10000 # Maximum number of iterations for the reconstruction
 output_filename = 'recovered_im_lasso.fits' #Output filename
 
 </code></pre>
+<p><strong>IMPORTANT:</strong> In case you want to run LASSO on your local machine, you need the DATABASE of models in the <mark>dataset/</mark> directory. The repository includes a copy of this DATABASE but it is partially truncated because of space in the GitHub repository. Before running the code, please download the complete DATABASE from this <a href="https://www.dropbox.com/sh/mtadpwbpns6nsvf/AABYHEQiMpuWPGvMvLqVLACVa?dl=0">Dropbox link</a> and put it inside the <mark>LASSO</mark> directory before running the code. </p>
 <p align="justify">
 The script <mark>CS_JWST_v1.py</mark> returns the recovered image in .fits format. Figure 5 shows the best-fit image obtained with our CS LASSO algorithm together with the original model image. For the example showed in this simulation, the general structure of the disk is reproduced. The reconstructed morphology shows the correct inclination and position angle. It also shows the brighter emission of the ring along the semi-major axis. The inner cavity is also clearly observed. However, the size of the semi-minor axis is larger than the one of the model image. This can be appreciated in the map of the residuals formed by subtracting the image model from the reconstructed one. Figure 6 shows that the observables are well reproduced by the reconstructed image.
 </p>
@@ -406,6 +407,7 @@ To  evaluate the quality of our reconstructions, we also generated images using 
       <footer class="col-md-12">
 	<hr>
 	<div class="container">
+	  <p>Author - Joel Sanchez Bermudez (Instituto de Astronomia de la Universidad Nacional Autonoma de Mexico). This code has been developed with funding from the UNAM PAPIIT project IA 101220 and from the Mexico's National Council of Science and Technology (CONACyT) “Ciencia de Frontera” project 263975</p>
 	</div>
       </footer>
       <script>

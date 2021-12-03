@@ -83,6 +83,7 @@
 
 
 <h1 id="this-repository-includes-software-to-perform-principal-component-analysis-for-infrared-interferometric-imaging-based-on-compressed-sensing-cassinipca-v10">This repository includes software to perform Principal Component Analysis for infrared interferometric imaging based on Compressed Sensing (CASSINI/PCA V1.0)</h1>
+<h1 id="link-to-the-github-repository-with-the-code-click-here">Link to the GitHub repository with the code, click <a href="https://github.com/cosmosz5/CASSINI/tree/develop">HERE</a></h1>
 <h2 id="1-principal-component-analysis">1 Principal Component Analysis</h2>
 <p>Principal Component Analysis, or PCA, is a dimensionality-reduction method, which transform a large set of variables into a smaller one that still contains most of the information in the large set. In this repository, we include a series of scripts to perform PCA on recovered infrared interferometric images. These images could be obtained with <a href="../about/"><strong>CASSINI/LASSO</strong></a> or with any other image reconstruction software (e.g., <a href="https://www.astro.phy.cam.ac.uk/research/ResearchFacilities/software-for-astrophyiscs/bsmem">BSMEM</a>, <a href="https://github.com/fabienbaron/squeeze">SQUEEZE</a> or <a href="https://cral-perso.univ-lyon1.fr/labo/perso/eric.thiebaut/?Software/MiRA">MiRA</a>). The purpose of applying PCA to interferometric images is to evaluate the quality of the reconstructions in terms of the features observed in the image. Very recently <a href="https://arxiv.org/pdf/1804.05903.pdf">Medeiros et al. (2020)</a> has demonstrated that PCA is a potential technique to characterize variability in reconstructed images from sparse interferometric data. </p>
 <p>Those authors demonstrated that the Fourier transforms of eigenimages derived from PCA applied to an ensemble of images in the spatial-domain are identical to the eigenvectors of PCA applied to the ensemble of the Fourier transforms of the images. This means that the visibilities of interferometric data can be represented as a linear combination of the Fourier transform of the principal components of the reconstructed images. </p>
@@ -170,6 +171,7 @@ lambd_values3 = np.logspace(-2, 3, 5) ##Lambda values for CS solver using pylops
     <div id="toc-collapse" class="navbar-collapse collapse card">
         <ul class="nav flex-column bs-sidenav">
             <li class="nav-item main"><a class="nav-link" href="#this-repository-includes-software-to-perform-principal-component-analysis-for-infrared-interferometric-imaging-based-on-compressed-sensing-cassinipca-v10">This repository includes software to perform Principal Component Analysis for infrared interferometric imaging based on Compressed Sensing (CASSINI/PCA V1.0)</a></li>
+            <li class="nav-item main"><a class="nav-link" href="#link-to-the-github-repository-with-the-code-click-here">Link to the GitHub repository with the code, click HERE</a></li>
                 <li class="nav-item">
                     <a href="#1-principal-component-analysis" class="nav-link">1 Principal Component Analysis</a>
                 </li>
@@ -185,6 +187,7 @@ lambd_values3 = np.logspace(-2, 3, 5) ##Lambda values for CS solver using pylops
       <footer class="col-md-12">
 	<hr>
 	<div class="container">
+	  <p>Author - Joel Sanchez Bermudez (Instituto de Astronomia de la Universidad Nacional Autonoma de Mexico). This code has been developed with funding from the UNAM PAPIIT project IA 101220 and from the Mexico's National Council of Science and Technology (CONACyT) “Ciencia de Frontera” project 263975</p>
 	</div>
       </footer>
       <script>
