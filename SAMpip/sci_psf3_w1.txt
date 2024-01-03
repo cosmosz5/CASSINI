@@ -1,1 +1,0 @@
-r_conv_psf3_w1.fits

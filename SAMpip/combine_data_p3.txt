@@ -1,3 +1,0 @@
-SIM_DATA_uncalib_r_conv_psf3_w1.oifits
-SIM_DATA_uncalib_r_conv_psf3_w2.oifits
-SIM_DATA_uncalib_r_conv_psf3_w3.oifits

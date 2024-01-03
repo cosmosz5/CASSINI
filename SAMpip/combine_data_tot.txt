@@ -1,3 +1,0 @@
-COMB_JWST_SAM_p1.fits
-COMB_JWST_SAM_p2.fits
-COMB_JWST_SAM_p3.fits
