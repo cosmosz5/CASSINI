@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>GRAVITY - RCAR analysis - CASSINI</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">CASSINI</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../SAMpip/" class="nav-link">SAMPip</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../NN/" class="nav-link">NN for imaging</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">GRAVITY - RCAR analysis</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../about/" class="nav-link">CS for SAM</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../cs_pca/" class="nav-link">CS PCA</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../Publications/" class="nav-link">Publications</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../NN/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../about/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#this-repository-includes-software-to-analyze-the-gravity-vlti-data-of-the-agb-mira-star-r-car" class="nav-link">This repository includes software to analyze the GRAVITY-VLTI data of the AGB Mira star R Car.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#link-to-the-github-repository-with-the-code-click-here" class="nav-link">Link to the GitHub repository with the code, click HERE</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#1-rcar-gravity" class="nav-link">1. RCar - GRAVITY</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#mcmc-fit-to-the-v2-across-the-pseudo-continuum" class="nav-link">MCMC fit to the V2 across the pseudo continuum</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#single-layer-model-to-fit-the-v2-across-the-first-and-second-co-bandheads" class="nav-link">Single-layer model to fit the \(V^2\) across the first and second CO bandheads</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#2-bootstrapp-method-for-image-reconstruction" class="nav-link">2. Bootstrapp method for image reconstruction</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#3-principal-component-analysis-pca-to-understand-the-structure-of-r-car" class="nav-link">3. Principal Component Analysis (PCA) to understand the structure of R Car</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#disclaimer" class="nav-link">Disclaimer</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="this-repository-includes-software-to-analyze-the-gravity-vlti-data-of-the-agb-mira-star-r-car">This repository includes software to analyze the GRAVITY-VLTI data of the AGB Mira star R Car.</h2>
+<h2 id="link-to-the-github-repository-with-the-code-click-here">Link to the GitHub repository with the code, click <a href="https://github.com/cosmosz5/CASSINI">HERE</a></h2>
+<h1 id="1-rcar-gravity">1. RCar - GRAVITY</h1>
+<p>This section contains a series of scripts (in the form of a <strong>Jupyter</strong> notebook) used for analyzing GRAVITY-VLTI data of the M-type AGB star R Car (see <a href="https://arxiv.org/abs/2303.00056">Rosales-Guzman et al. (2023)</a> ). The Jupyter notebook is divided into the following 3 parts. To run the codes, just download the repository and open the Jupyter notebook <code>RCar_analysis.ipynb</code> to star working with it using the following command:</p>
+<pre><code class="language-bash">
+&gt;&gt; user@users_pc ~ % Jupyter notebook RCar_analysis.ipynb
+
+</code></pre>
+<h3 id="required-packages-python-30">Required packages (Python &gt; 3.0):</h3>
+<ol>
+<li><a href="https://www.astropy.org">Astropy</a></li>
+<li><a href="https://corner.readthedocs.io/en/latest/install/">emcee</a></li>
+<li><a href="https://matplotlib.org">lmfit</a></li>
+<li><a href="https://matplotlib.org">matplotlib</a></li>
+<li><a href="https://numpy.org">numpy</a></li>
+<li><a href="https://pypi.org/project/opencv-python/">Open CV</a></li>
+<li><a href="https://scipy.org/install/">scipy</a></li>
+<li><a href="https://scikit-learn.org/stable/install.html">sklearn</a></li>
+<li><code>oitools.py (provided)</code></li>
+</ol>
+<h2 id="mcmc-fit-to-the-v2-across-the-pseudo-continuum">MCMC fit to the V<sup>2</sup> across the pseudo continuum</h2>
+<p>To obtain the angular size of R Car across the K-band, we applied a geometrical model of a uniform disk (UD) to the V<sup>2</sup> data. The visibility function of our models is given by the following equation (<a href="https://doi.org/10.1016/j.newar.2007.06.003">Berger &amp; Segransan (2007)</a>):</p>
+<div class="arithmatex">\[
+V_{\mathrm{UD}}(u,v) = 2(\mathrm{F_r})\frac{J_1(\pi \rho \Theta_\mathrm{UD} )}{\pi  \rho \Theta_{\mathrm{UD}}}\
+\]</div>
+<p>where <span class="arithmatex">\(\rho = \sqrt{u^2+ v^2}\)</span>, u and v are the spatial frequencies sampled by the interferometric observations, J<sub>1</sub> is the first order Bessel function, &Theta;<sub>UD</sub> and F<sub>r</sub> are the angular diameter of the uniform disk profile and a scaling factor that accounts for the over-resolved flux in the observations, respectively. To fit the data, we used a Monte-Carlo Markov-Chain (MCMC) algorithm based on the <code>Python</code> package <code>emcee</code> (<a href="https://iopscience.iop.org/article/10.1086/670067/pdf">Foreman et al., 2013</a>). We let 250 walkers evolve for 150 steps using the data of each spectral bin independently. The results of this code are shown as three plots (Figs. 1, 2, and 3). </p>
+<figure>
+<p><img alt="fringes_webb" height="400" src="../Images4/Fig1.png" width="400" />
+  </p>
+<figcaption> <strong>Figure 1. </strong> Best-fit to the $V^2$ from the MCMC. The data are shown with red dots and the model with the blue line. The values corresponding to the best model are also shown in the plot.   </figcaption>
+</figure>
+<figure>
+<p><img alt="fringes_webb" height="400" src="../Images4/Fig2.png" width="600" />
+  </p>
+<figcaption> <strong>Figure 2. </strong> Positions of each walker as a function of the number of steps in the chain. </figcaption>
+</figure>
+<figure>
+<p><img alt="fringes_webb" height="500" src="../Images4/Fig3.png" width="500" />
+  </p>
+<figcaption> <strong>Figure 3. </strong> The corner plot shows all the one and two dimensional projections of the posterior probability distributions of our parameters D (or $\Theta_{UD}$) and $F_r$. The marginalized distribution for each parameter is shown in the histograms along the diagonal. The marginalized two dimensional distribution is also plotted.  </figcaption>
+</figure>
+<h2 id="single-layer-model-to-fit-the-v2-across-the-first-and-second-co-bandheads">Single-layer model to fit the <span class="arithmatex">\(V^2\)</span> across the first and second CO bandheads</h2>
+<p>The MOLsphere model, used to calculate the size, temperature, and optical thickness of the CO layer consists of a stellar disk with a compact layer around it.  The star is modeled by a stellar surface of radius <span class="arithmatex">\(R_*\)</span> which emits as a black-body at a temperature <span class="arithmatex">\(\mathrm{T_{*}}\)</span>. It is surrounded by a compact spherical layer of radius <span class="arithmatex">\(\mathrm{R_{L}}\)</span> that absorbs the radiation emitted by the star and re-emits it like a black-body. The MOLsphere is characterized by its temperature <span class="arithmatex">\(\mathrm{T_{L}}\)</span>, radius <span class="arithmatex">\(\mathrm{R_L}\)</span> and its optical depth <span class="arithmatex">\(\tau_{\lambda}\)</span>. The region between the stellar photosphere and the layer is assumed to be empty (See the figure for a skecth of the model). The analytical expression of the model is given by:</p>
+<figure>
+<p><img alt="fringes_webb" height="150" src="../Images4/Fig4.png" width="350" />
+  </p>
+<figcaption>  </figcaption>
+</figure>
+<p>where  <span class="arithmatex">\(I_\lambda^r = I_{\lambda}^r(\mathrm{T_{*}} , \mathrm{T_L}, \mathrm{R_*}, \mathrm{R_L}, \tau_{\lambda})\)</span>,  <span class="arithmatex">\(\mathrm{T_*}\)</span> and <span class="arithmatex">\(\mathrm{T_L}\)</span> are the temperatures of the photosphere and of the CO layer, respectively; <span class="arithmatex">\(\mathrm{R_*}\)</span> and <span class="arithmatex">\(\mathrm{R_L}\)</span> are the angular radius of the star and the layer, respectively; <span class="arithmatex">\(\tau_\lambda\)</span> is the optical depth of the molecular layer at wavelength <span class="arithmatex">\(\lambda\)</span>; <span class="arithmatex">\(B_\lambda(\mathrm{T})\)</span> is the Planck function (at wavelength <span class="arithmatex">\(\lambda\)</span> and temperature T); and <span class="arithmatex">\(\beta\)</span> is the angle between the radius vector and the line-of-sight so that <span class="arithmatex">\(\cos\beta = \sqrt{1-(\mathrm{r}/\mathrm{R_L})^2}\)</span>.</p>
+<p>For the fitting, we adopted a <span class="arithmatex">\(\mathrm{T_{*}}\)</span>=2800 K and <span class="arithmatex">\(\mathrm{R_{*}}\)</span>=5 mas (<a href="https://doi.org/10.1117/12.2057312">Monnier et al., 2014</a>; <a href="https://doi.org/10.1111/j.1365-2966.2012.21873.x">McDonald et al., 2012</a>). We use the disk estimation reported in the H- band because it is considerably less affected from molecular contribution, in contrast with the K-band where  molecules like CO, <span class="arithmatex">\(H_{2}O\)</span>, and OH among others (see e.g. <a href="https://doi.org/10.1051/0004-6361/201833029">Wittkowski et al.,  2018</a>; <a href="https://core.ac.uk/download/pdf/11597038.pdf">Paladini 2011</a>) are present over the entire band. The unknown parameters are then <span class="arithmatex">\(\mathrm{T_L}\)</span>, <span class="arithmatex">\(\mathrm{R_L}\)</span> and <span class="arithmatex">\(\tau_L\)</span>. We performed a two-step process to estimate these parameters. As first step, for each pair of <span class="arithmatex">\(\mathrm{T_L}\)</span> and <span class="arithmatex">\(\mathrm{R_L}\)</span>, we performed a least-squares minimization to find the best-fit value of <span class="arithmatex">\(\tau_L\)</span> that reproduces the spectrum <span class="arithmatex">\(F_{\lambda}^{\mathrm{R Car}}\)</span>. The next step consisted of using an MCMC method based on the <code>Python</code> library <code>emcee</code> to estimate the best combinations of <span class="arithmatex">\(\mathrm{T_L}\)</span>, <span class="arithmatex">\(\mathrm{R_L}\)</span>, and <span class="arithmatex">\(\tau_L\)</span> that reproduce the <span class="arithmatex">\(V^2\)</span>. </p>
+<p>To account for the over-resolved flux when modeling the <span class="arithmatex">\(V^2\)</span> data, we added a scaling factor Fr. This value was estimated simultaneously with the other parameters in the model. </p>
+<figure>
+<p><img alt="fringes_webb" height="400" src="../Images4/Fig5.png" width="400" />
+  </p>
+<figcaption> <strong>Figure 4. </strong> Illustration of the single-layer model. The yellow disk represents the star, and the orange ring represents the layer. The parameters in the image are as described in the text above.  </figcaption>
+</figure>
+<p>Figs. 5 and 6 are generated by the single-layer model part of the notebook. </p>
+<figure>
+<p><img alt="fringes_webb" height="400" src="../Images4/Fig6.png" width="400" />
+  </p>
+<figcaption> <strong>Figure 5. </strong>Best-fit to the V<sup>2</sup> using the Single-layer model. The green dots correspond to the data and the purple ones to the fit (see the labels on the plot). The best-fit parameters are shown in the top right corner of the figure.  </figcaption>
+</figure>
+<figure>
+<p><img alt="fringes_webb" height="500" src="../Images4/Fig7.png" width="500" />
+  </p>
+<figcaption> <strong>Figure 6. </strong> Corner plot of all the one and two dimensional projections of the posterior probability distributions of our parameters T<sub>L</sub>, R<sub>L</sub> and F<sub>r</sub>. As shown in Fig. 3, the marginalized distribution for each parameter is located in the histograms along the diagonal.  </figcaption>
+</figure>
+<h1 id="2-bootstrapp-method-for-image-reconstruction">2. Bootstrapp method for image reconstruction</h1>
+<p>To build new data samples from the original one, we employed the bootstrap technique. The samples were created by keeping the original number of data points unaletered, but allowwing random sampling with replacement. This created some data sets where some points have higher weights than in the original data set, and some others with zero weights. This algorithm also produces slight changes in the u-v plane, which allows us to trace the impact of the u-v coverage on the reconstructed images, without loosing the statistical significance of the original number of data points (see Fig. 7). 
+According to <a href="https://www.jstor.org/stable/2240663">Babu &amp; Singh 1983</a>, the statistical moments such as mean, variance and standard deviation of the bootstrapped samples are good approximations to the statistical moments of the original data sets. Finally, since each bootstrapped data set is different, we will have slightly different reconstructed images. </p>
+<figure>
+<p><img alt="fringes_webb" height="300" src="../Images4/Fig8.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 7. </strong> From left to right: $V^2$ and CPs as a function of the Spatial Frequency, and UV coverage for a sample of ten bootstrapped data sets. Each color corresponds to a different bootstrapped data set.  </figcaption>
+</figure>
+<h1 id="3-principal-component-analysis-pca-to-understand-the-structure-of-r-car">3. Principal Component Analysis (PCA) to understand the structure of R Car</h1>
+<p>To have a more precise characterization of the asymmetries in the reconstructed images of the CO band-heads, we used the Principal Component Analysis (PCA) described by <a href="https://iopscience.iop.org/article/10.3847/1538-4357/aad37a/meta">Medeiros et al., 2018</a>. Those authors demonstrate that the visibilities of the Principal Components are equal to the Principal Components of the visibilities. This method is useful to trace the changes across a set of images that have the largest effect on the visibility (amplitude and -closure- phase) profile. In our case, we estimate the most significant structural changes of the observed asymmetric structures across wavelength for each of the observed epochs. The following procedure was applied to the ensemble of wavelength dependent images per epoch to extract their Principal Components.</p>
+<p>For the PCA analysis, we normalize each data set by subtracting the corresponding mean image and dividing by their standard deviation image across the wavelength range. To perform the PCA analysis, we used the <a href="../cs_pca/">CASSINI-PCA</a> package. This software allows to compute the covariance matrix of the data set and to transform it into the space of the principal components. This allows us to determine the eigenvectors (or eigen-images, in our case) and their corresponding eigenvalues. Since we only have seven images per data set,  and the possible number of components must be smaller or equal than the number of images in the data set, we decided to only keep the first four principal components. From our tests, we observed that those components explain, at least, the 93\% of the variance in the data sets. </p>
+<figure>
+<p><img alt="fringes_webb" height="300" src="../Images4/Fig9.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 8. </strong> First four Principal Components for the January epoch for the 1st CO band head. The relative scale of the structures in the eigen-images is displayed with a colorbar at the bottom of each panel. Only the central 20 mas of the eigen-images are shown on each panel. The white contours correspond to the mean image across wavelength (per given data set) and they represent 10, 30, 50, 70, 90, 95, 97, and 99 % of the intensity's peak.  </figcaption>
+</figure>
+<figure>
+<p><img alt="fringes_webb" height="300" src="../Images4/Fig10.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 9. </strong> Representative example of the CPs versus spatial frequencies of the data set that corresponds to the 1st CO band-head at 2.2946 &mu;m (gray squares). The colored dots show the CPs from the recovered images obtained with different numbers of Principal Components (see label on the plot).  </figcaption>
+</figure>
+<h1 id="disclaimer">Disclaimer</h1>
+<p>All the scripts that compose this repository are part of the A&amp;A article <a href="https://www.aanda.org/articles/aa/pdf/2023/06/aa45370-22.pdf">Imaging the innermost gaseous layers of the Mira star R Car with GRAVITY-VLTI</a> from Rosales-Guzman et al. For enquiries and/or contributions please contact jarosales@astro.unam.mx, who is a PhD student associated with this project. </p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Author - Joel Sanchez Bermudez (Instituto de Astronomia de la Universidad Nacional Autonoma de Mexico). This code has been developed with funding from the UNAM PAPIIT project IA 101220 and from the Mexico's National Council of Humanities, Science and Technology (CONAHyCyT) “Ciencia de Frontera” project 263975</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../javascripts/mathjax.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

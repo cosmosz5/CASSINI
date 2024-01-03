@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>NN for imaging - CASSINI</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">CASSINI</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../SAMpip/" class="nav-link">SAMPip</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">NN for imaging</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../RCAR/" class="nav-link">GRAVITY - RCAR analysis</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../about/" class="nav-link">CS for SAM</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../cs_pca/" class="nav-link">CS PCA</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../Publications/" class="nav-link">Publications</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../SAMpip/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../RCAR/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#this-repository-includes-software-to-reduce-data-obtained-with-fizeau-interferometry-in-the-form-of-sparse-aperture-masking" class="nav-link">This repository includes software to reduce data obtained with Fizeau interferometry in the form of Sparse Aperture Masking.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#link-to-the-github-repository-with-the-code-click-here" class="nav-link">Link to the GitHub repository with the code, click HERE</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#1-introduction-to-the-current-state-of-infrared-interferometric-imaging" class="nav-link">1. Introduction to the current state of infrared interferometric imaging</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#2-neural-networks-for-interferometric-imaging" class="nav-link">2. Neural Networks for interferometric imaging</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#21-introduction" class="nav-link">2.1. Introduction</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#22-adaptive-hyper-parameters-a-new-framework-for-neural-network-training" class="nav-link">2.2. Adaptive hyper-parameters, a new framework for Neural Network training</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#3-example-of-nn-imaging" class="nav-link">3. Example of NN imaging</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#31-observations-and-data" class="nav-link">3.1. Observations and Data</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#32-software-architecture" class="nav-link">3.2. Software architecture</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#33-reconstruction-and-benckmarking" class="nav-link">3.3 Reconstruction and benckmarking</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="this-repository-includes-software-to-reduce-data-obtained-with-fizeau-interferometry-in-the-form-of-sparse-aperture-masking">This repository includes software to reduce data obtained with Fizeau interferometry in the form of Sparse Aperture Masking.</h2>
+<h2 id="link-to-the-github-repository-with-the-code-click-here">Link to the GitHub repository with the code, click <a href="https://github.com/cosmosz5/CASSINI">HERE</a></h2>
+<h1 id="1-introduction-to-the-current-state-of-infrared-interferometric-imaging">1. Introduction to the current state of infrared interferometric imaging</h1>
+<p>During the last decade, there has been a large effort to provide reliable software for image reconstruction to the community. However, the existing software packages face some problems:</p>
+<p><strong> • Most of the algorithms only work with monochromatic reconstructions. </strong> They cannot simultaneously recover images over different wavelengths. Therefore, they cannot make full use of differential phases and astrometry.</p>
+<p><strong> • Most of the algorithms rely on regularization functions in image space. </strong> These functions are necessary to ensure convergence and impose conditions such as smooth transitions between adjacent pixels, positivity, or sharp edges. Unfortunately, an unsuitable choice in the selection of regularization functions can result in in different outcomes for the same target even in the presence of a very good u-v coverage. Finally, ideally regularization functions need to vary across the pixel grid in case of complex target morphologies. This poses additional difficulties for the choice of regularizers and for the convergence of the algorithms, which are intimately connected.</p>
+<p><strong> • Most existing software packages use a Bayesian approach to fit the pixels’ brightness distribution. </strong> However, the fit is not always well constrained because of the traditional minimization algorithms used (gradient descent and Monte-Carlo), in particular if non-convex regularizers (such as the L0-norm) are used for the reconstruction. This can prevent the convergence of the algorithms.</p>
+<p><strong> • Each attempt at image reconstruction resembles an “artisanal” process, relying on the experience of each individual astronomer. </strong> Each reconstruction is tailored for a specific target and it is generally not possible to apply similar setups to a group of targets. This limits the potential of imaging for studies of large numbers of objects severely. A transition from artisanal to standard and reproducible imaging reconstruction is needed, securing the reliability and reproducibility of the results. This is particularly important for the upcoming instrumentation such as GRAVITY+ at the VLTI and NIRISS-SAM at the JWST.</p>
+<h1 id="2-neural-networks-for-interferometric-imaging">2. Neural Networks for interferometric imaging</h1>
+<h2 id="21-introduction">2.1. Introduction</h2>
+<p><strong>Artificial neural networks (NN) </strong> are highly distributed systems that are inspired by the way neurons are inter- connected in biological nerve systems. The basic unit in a NN is called a neuron. It is interconnected with others to learn certain patterns or predict certain behavior. For this, it is necessary to train the NN over several iterations using a large number of models or measurements. This type of algorithm has demonstrated to learn very complex patterns that cannot be easily predicted with other, more traditional, methods. A type of NN that has demonstrated to be very efficient in learning morphological structures from images is a <strong>Convolutional Neural Network (CNN)</strong>. This type of network is designed to work with grid-structured inputs that have strong local spatial correlations like the pixels of structured astronomical images. The key of the success of CNNs is their ability to semantically understand different structures by connecting layers in a localized way. Some examples of the applicability of these networks to recover, or even to generate new ”natural” images are the so-called Generative Adversarial Networks or Generative Variational Auto Encoders. Fig. 1 shows an example of a generative adversarial network, where two networks, the Generator (G; which is typically a CNN) and the Discriminator (D), play a minmax game so that G can learn how to produce new images based on the morphological properties of the ones used for training.</p>
+<h2 id="22-adaptive-hyper-parameters-a-new-framework-for-neural-network-training">2.2. Adaptive hyper-parameters, a new framework for Neural Network training</h2>
+<p>The previous approaches rely on the process of fitting an object representation to noisy data by using regularized minimization methods (either by using the sparsity as regularizer, like in the CS approach; or using the output of <strong>D</strong> in the GAN reconstruction). However, a machine-learning step-forward is to estimate a direct mapping, <strong>F(m; θ)</strong>, parametrized by <strong>θ</strong>, from the interferometric data, <strong>m</strong>, to the reconstructed image, <strong>t</strong>, without pre-defining strong hyperparameters. In the NN framework, to find <strong>θ</strong> this approach requires (i) to learn the set of weights of the neuron connections during the training process and (ii) to properly define the activation functions of each one of the neurons, when designing the network architecture.</p>
+<p>One of the key aspects of pattern recognition from NNs is the role of the activation function. The activation function decides, whether a neuron should be activated or not with the purpose of introducing non-linearity into the output of a neuron. Determining the different activation functions in the architecture of the network is essential for its correct functioning. There are, at least, three types of activation functions: saturated, unsaturated and adaptive. Saturated activation functions are used for decision boundaries (e.g., Sigmoid). However, this type of activation functions could lead to vanishing gradient problems during the training process. Unsaturated activation functions solve the vanishing gradient problem but, it they fall into a negative region, is highly improbable that the neuron could be activated again (e.g., Rectified Linear Unit -ReLU-). This could be solved by adding a constant term that acts like threshold for the negative part of the function (e.g., Leaky ReLU). Nevertheless, including this new pre-defined constant is like adding an hyperparameter which could strongly affect the learning process of the NN. Adaptive activation functions solve these problems by using trainable coefficients. The use of adaptive activations functions has demonstrated to have interesting implications in making the learning process faster and more effective.</p>
+<figure>
+<p><img alt="Dummy image2" height="400" src="../Images5/GAN_scheme.png" width="800" />
+  </p>
+<figcaption> <strong>Figure 1.</strong> Schematics of a Generative Adversarial Network (GAN). This type of neural network confronts two nets in a minmax game. The first one is the generator (G) which is going to create new samples of a signal from a compressed dimensional space (i.e., the latent space). The second one is the discriminator (D), which tries to determine whether the input from G is fake in comparison with a sample or real images. </figcaption>
+</figure>
+<h1 id="3-example-of-nn-imaging">3. Example of NN imaging</h1>
+<h2 id="31-observations-and-data">3.1. Observations and Data</h2>
+<p>The data added to illustrate our NN reconstruction approach correspond to Sparse Aperture Masking (SAM) observations were taken with the NACO-VLT infrared camera. Particularly, we recorded SAM data on the extended infrared source GC IRS 1W in the Galactic Center (GC). This target is a previously identified stellar bow-shock source produced by the relative motion of the central star and the momentum balance shock between the stellar wind and the interstellar medium. The observations were performed using the L27 camera (0.027”/pixel) with the L’ broad-band filter (λ0 = 3.80 μm, ∆λ = 0.62 μm) combined with the BB 9holes NRM. We obtained 4 different data cubes from which the interferometric observable where extracted using <a href="../SAMpip/">CASSINI-SAMPip</a>. Fig. 2 displays the calibrated squared visibilities, closure phases and u-v plane. The file <mark>MERGED_IRS1W.oifits</mark> contains all the SAM data used in this example and it is included in the Github repository. </p>
+<figure>
+<p><img alt="Dummy image2" height="350" src="../Images5/observables.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 1.</strong>The <strong>lef</strong>t panel shows the calibrated squared visibilities of GC IRS 1w versus spatial frequencies obtained from our NACO-SAM observations. Similarly, the <strong>middle</strong> panel shows the calibrated closure phases versus spatial frequencies. The <strong>right</strong> panel displays the u-v plane of the observations.
+ </figcaption>
+</figure>
+<h2 id="32-software-architecture">3.2. Software architecture</h2>
+<p>Our NN algorithm is based on the AUTOMAP architecture. The AUTOMAP network has been used to reconstruct images from medical data obtained through Magnetic Resonance Imaging (MRI). This network has demonstrated to be quite efficient in mapping between sensor and image domains with the use of appropriate training data. The network presented here, called <strong>CASSINI-AUTOMAP</strong>, follows this approach and it maps directly the interferometric data to the reconstructed image by using a convolutional neural network. Figure 3 displays the model summary with the different layers used and the number of parameters trained on each one. Figure 4 shows a schematic representation of our NN. In the diagram, we can observe the two main sections of the network. The first one corresponds to three fully connected layers (FC1, FC2 and FC3) which map the input observables with the number of pixels in the output image. FC3 has a dimension equivalent to n2 × 1, where n is the number of pixels per side in the output image, in our case n=64. FC1 uses a simple sigmoid activation function. FC2 and FC3 use an adaptive hyperbolic tangent (Atanh) activation function with two trainable parameters. The second section employs three convolutional layers (C1, C2 and C3). C1 and C2 convolve 64 filters of 5 × 5 kernel size with stride 1 while, C3 uses a 7 × 7 kernel size. C1 and C2 employ a parametric rectified linear unit (PReLU) activation function and dropout with a probability of 0.1 before being connected between them. C3 and the output layer, C<sub></sub>, are used to deconvolve the image into a 64 × 64 array.</p>
+<figure>
+<p><img alt="Dummy image2" height="900" src="../Images5/model_summary.pdf" width="600" />
+  </p>
+<figcaption> <strong>Figure 3.</strong>The figure summarizes the different layers used in our CASSINI-AUTOMAP network. The first column displays the name of the different layers; the second column shows the output shape at a given layer and; the third column lists the number of trainable parameters at each layer.
+ </figcaption>
+</figure>
+<figure>
+<p><img alt="Dummy image2" height="350" src="../Images5/test_simple.pdf" width="900" />
+  </p>
+<figcaption> <strong>Figure 4.</strong>Schematic of the CASSINI-AUTOMAP network. The 1D and 2D sections are displayed with different colors. The output of the network correspond to a 64 × 64 image of a stellar bow shock.
+ </figcaption>
+</figure>
+<p>Our network was deployed in Python using the <code>Keras</code> module in an Apple Mac BookPro computer under the <code>PlaidML</code> environment. The training of the network was performed using an external AMD Radeon RX 570 GPU with 4 GB of memory. CASSINI-AUTOMAP is accessible in the Github repository of this documentation. It is a single script that can be run with the following command: </p>
+<pre><code class="language-bash">
+&gt;&gt; python AUTOMAP_keras_4.py --mode train --epochs 300 --batch-size 128
+
+</code></pre>
+<p>As it can be observed AUTOMAP runs in-line on the Terminal with the following available commands: </p>
+<pre><code class="language-markdown">
+1. --mode (train, generate, validate)
+2. --batch_size (integer value)
+3. --nice (True, False)
+4. --epoch (integer value)
+5. --oifilename (filename of the oifits data when recover interferometric images from data)
+
+</code></pre>
+<p>As part of the repository a <mark>.npz</mark> file is included with 2000 compressed radiative transfer models that can be used to train the network. These models are acompained with their corresponding interferometric observables. Both files are hardcoded in the NN code, they are asigned to the variables: </p>
+<pre><code class="language-py">load_data = np.load('bs64_flux.npz') ## The RT models    
+load_oidata = np.load('xnew_OBTot.npz') ## The interferometric observables from the RT models
+</code></pre>
+<p>This setup will allow us to  fully train the network over 300 epochs using the Adam optimizer. From our tests, we notice that the number of epochs used is, at least, a third of the ones required without using adaptive activation functions. This results in a significant reduction of the processing time required during training. </p>
+<p>The cost function used for back-propagation of the gradient is the regression mean-squared error (MSE) loss. Figure 5 displays the MSE obtained from the different batches per epoch over the training process. The evolution of the MSE converges after 300 epochs. The biggest jump is observed around the first 20 epochs. This coincides with the epoch when the network learns the general shape of the bow shock. </p>
+<figure>
+<p><img alt="Dummy image2" height="400" src="../Images5/losses64_OBTot.png" width="400" />
+  </p>
+<figcaption> <strong>Figure 5.</strong> Evolution of the cost function (mean-square error) over the 300 epochs in which the CASSINI-AUTOMAP network was trained.
+ </figcaption>
+</figure>
+<p>Every 50 epochs the code saves the state of the weights in the network. In case the user needs to stop the net for debugging process. Every ten epochs the code also saves a <mark>.png</mark> file  with a random series of batch images with the state of the trainning process; the code also saves a <mark>.fits</mark> file with those images for further inspection by the user. Fig. 6 displays an example of the images generated.</p>
+<figure>
+<p><img alt="Dummy image2" height="600" src="../Images5/221_OBTot_0.png" width="1200" />
+  </p>
+<figcaption> <strong>Figure 6.</strong> The image displays different panels obtained during the training process of AUTOMAP. Different morphologies of the bowshocks are recovered (i.e., different sizes, position angles, inclinations, brigthness, etc). 
+ </figcaption>
+</figure>
+<p>To illustrate better how the trainning process work, we plotted in Fig. 7  a sample of 5 different images obtained at different epochs, that clearly illustrate the evolution of the training process, at Epoch 0 there is only noise in the predicted images. However, as the network weights are evolving, central elongated structures appear and gradually the form of bow shocks emerge.</p>
+<figure>
+<p><img alt="Dummy image2" height="700" src="../Images5/epochs.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 7.</strong>The image displays 25 panels with reconstructed images obtained with CASSINI-AUTOMAP. Every column shows 5 images at different epochs. Each panel covers an equivalent area of 640 × 640 mas. The emission is normalized to the peak of each image.
+ </figcaption>
+</figure>
+<h2 id="33-reconstruction-and-benckmarking">3.3 Reconstruction and benckmarking</h2>
+<p>Once the trainning process is finished (it is important that the user validates - this is done with the <code>--mode validate</code> keyword - the trainning of the net using independent models), AUTOMAP could be used to recover an image with real data. to do this, the user should include the following instruction in the Terminal: </p>
+<pre><code class="language-bash">
+&gt;&gt; python AUTOMAP_keras_4.py --mode generate --oifilename MERGED_IRS1W.oifits
+
+</code></pre>
+<p>where <mark>MERGED_IRS1W.oifits</mark> is the OIFITS file with the calibrated data that we are using for the reconstruction. For this example, we predict the morphology of the GC IRS 1W bow shock by randomly creating 100 samples from the interferometric data, assuming Gaussian distributions based on the mean and standard deviation of each observable. The mean image obtained with CASSINI-AUTOMAP was able to recover the interferometric observables with great accuracy. Indeed, the morphology of the bow-shock is clearly visible, even for pixel values below 5% of the peak value. We estimated a SNR ∼ 40 for pixel values of 5% of the emission peak.</p>
+<p>In order to benchmark our neural network imaging algorithm, images from the SAM data were reconstructed using the regularized minimization algorithm BSMEM (21; 22). This code uses entropy as regularizer to encode the prior information of the source’s brightness distribution. This code uses the squared visibilities, closure phases and closure amplitudes to fit the model images with the data. Images were recovered using a pixel scale of 10 mas/px over a pixel grid of 64 × 64 px. Fig. 8 displays the best reconstructed image using BSMEM (the code converges to a χ2 = 1.1). Notice how the structure of the bow shock is recovered. The apex and the tails of the morphology are clearly observed. It can be seen that the peak of the brightness distribution is over the tails of the bow shock. The synthetic observables from the reconstructed images are displayed on top of the interferometric observables from the data. The best-fit image appears to recover quite well the trend observed in the interferometric data.</p>
+<p>The reconstructed image with the NN (Fig. 9) also exhibits an asymmetric bow shock with the peak of the emission over the tails of the shock front. The estimated size of the bow shock and the position angle of the apex (PA ∼ 25º) are similar between the BSMEM image and the CASSINI-AUTOMAP one. However, we could clearly identify that the emission below 10% of the peak value in the BSMEM image is very asymmetric, while, in the NN image the emission follows the same structure of the tails. This effect is caused because of the models employed for training the network. However, this does not compromise the fit of the observables. Adding more structures (like point-like sources) to the models used for training could help us to discover additional asymmetries in the source structure. The interesting idea behind this is the possibility of linking these additional sources with well-recognized physical structures, for example dust clumps or stellar companions. </p>
+<figure>
+<p><img alt="Dummy image2" height="270" src="../Images5/bsmem_obs.png" width="1200" />
+  </p>
+<figcaption> <strong>Figure 8.</strong> Left panel: Normalized BSMEM reconstructed image from our SAM data. The white contours show the 5, 10, 30, 50, 70 and 90 % of the source’s peak. Middle and right panels: Squared visibilities and closure phases versus spatial frequencies. The NACO-SAM data is displayed with black dots and the observables extracted from the reconstructed image are displayed with red dots.
+ </figcaption>
+</figure>
+<figure>
+<p><img alt="Dummy image2" height="270" src="../Images5/automap_obs.png" width="1200" />
+  </p>
+<figcaption> <strong>Figure 9.</strong> Left panel: Normalized CASSINI-AUTOMAP reconstructed image from our SAM data. The white contours show the 5, 10, 30, 50, 70 and 90 % of the source’s peak. Middle and right panels: Squared visibilities and closure phases versus spatial frequencies. The NACO-SAM data is displayed with black dots and the observables extracted from the reconstructed image are displayed with red dots. 
+ </figcaption>
+</figure></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Author - Joel Sanchez Bermudez (Instituto de Astronomia de la Universidad Nacional Autonoma de Mexico). This code has been developed with funding from the UNAM PAPIIT project IA 101220 and from the Mexico's National Council of Humanities, Science and Technology (CONAHyCyT) “Ciencia de Frontera” project 263975</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../javascripts/mathjax.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

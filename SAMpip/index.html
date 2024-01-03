@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>SAMPip - CASSINI</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">CASSINI</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">SAMPip</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../NN/" class="nav-link">NN for imaging</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../RCAR/" class="nav-link">GRAVITY - RCAR analysis</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../about/" class="nav-link">CS for SAM</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../cs_pca/" class="nav-link">CS PCA</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../Publications/" class="nav-link">Publications</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../NN/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#this-repository-includes-software-to-reduce-data-obtained-with-fizeau-interferometry-in-the-form-of-sparse-aperture-masking" class="nav-link">This repository includes software to reduce data obtained with Fizeau interferometry in the form of Sparse Aperture Masking.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#link-to-the-github-repository-with-the-code-click-here" class="nav-link">Link to the GitHub repository with the code, click HERE</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#1-sampip" class="nav-link">1. SAMPip</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#2-example-of-the-use-of-sampip-with-the-jwst-user-manual" class="nav-link">2. Example of the use of SAMPip with the JWST  (User Manual)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="this-repository-includes-software-to-reduce-data-obtained-with-fizeau-interferometry-in-the-form-of-sparse-aperture-masking">This repository includes software to reduce data obtained with Fizeau interferometry in the form of Sparse Aperture Masking.</h2>
+<h2 id="link-to-the-github-repository-with-the-code-click-here">Link to the GitHub repository with the code, click <a href="https://github.com/cosmosz5/CASSINI">HERE</a></h2>
+<h1 id="1-sampip">1. SAMPip</h1>
+<p>Sparse Aperture Masking Interferometry is a technique that transforms a unitary telescope into a Fizeau interferometry by placing a mask with a series of pin-holes in the pupil plane of the telescope. Each pair of pin-holes produces a non-redundant baseline that samples a specific spatial frequency in the Fourier domain (i.e., a specific angular scale). This technique has important advantages compared with regular imaging: (a) the mask acts as spatial filter, therefore, only structures between 0.5 &lambda;/B and 5 &lambda;/B are sampled; (b) the Point-Spread Function (PSF) is a very well defined interferogram that depends, at first order, of the mask geometry; (c) the best-resolution achieved with this technique is two times better than the standard diffraction limit regime of a full-pupil observation. </p>
+<figure>
+<p><img alt="Dummy image2" height="200" src="../Images3/SAM_diagram.png" width="800" />
+  </p>
+<figcaption> <strong>Figure 1.</strong> Simplified diagram of the principal elements of Sparse Aperture Masking interferometry. The design of the 7 pin-hole mask of NIRISS-JWST is shown on the left. The rightmost panel displays the simulation of the fringe pattern of a point source at the detector of NIRISS-JWST. </figcaption>
+</figure>
+<p><strong>CASSINI-SAMpip</strong> is a module that recovers the interferometric observables (squared visibilities and closure phases) from an interferogram obtained with a non-redundant mask (NRM). SAMPip uses the geometry of the to decompose the interferogram into a series of fringe patterns produced by each pair of pin-holes in the mask. For example, in the case of a non-redundant mask with 7 pin-holes, there will be 21 baselines. Each of them is decomposed into cosine and sine factors. In this case, the model of the interferogram, thus, contains 42 parameters, plus one more that accounts for the difraction pattern of the pin-hole geometry and an offset that accounts for the zero point flux. Fig. 2  includes an example of the interferogram produced by the NRM on board of the instrument NIRISS at the <strong> James Webb Space Telescope </strong>.</p>
+<figure>
+<p><img alt="fringes_webb" height="400" src="../Images3/fringes1.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 2. </strong> Example of the interferogram produced with the non-redundant mask at NIRISS-JWST (lower-left white circle). The image also shows five examples of individual fringe patterns produced by different baselines in the mask, plus the diffraction pattern of the pin-hole shape.  </figcaption>
+</figure>
+<p>SAMPip uses an expanssion of the following fringe expression (the cosine and sine factors are repeated per baseline, BL<sub>i</sub>, in the array) to obtain the total flux in the interferogram, I<sub>0</sub>, as well as the visibilities, V<sub>i</sub>, and phases, &phi;<sub>i</sub>. The term kx<sub>t</sub> depends on the spatial frequency sampled by the mask. The complete mathematical description of the model used by SAMPip is described in <a href="https://iopscience.iop.org/article/10.1088/1538-3873/acaebd/pdf">Sivaramakrishnan et al. (2023)</a>. </p>
+<figure>
+<p><img alt="fringes_webb" height="150" src="../Images3/fringe_eq.png" width="600" />
+  </p>
+<figcaption> <strong>Equation 1. </strong> Fringe equation per baseline used to model the interferogram in SAMPip. </figcaption>
+</figure>
+<p>In order to extract the interferometric observables, the pixel values from the interferogram, I<sub>t</sub>(k,V,&phi;) are extracted and the right side of the fringe equation is solved using a matrix inversion. Once the visibilities and phases are obtained, the closure phases are calculated from them. Please, take into account that the extracted phases could be highly affected by atmospheric (in case of ground-based observations) and instrumental systematics.  <strong>Closure Phases (CPs) </strong>  (see Fig. 2) are computed by obtaining the argument of the complex triple product of visibilities obtained from a closed triangle of baselines. Closure phases are particularly important because they are observables that are free of telescope-dependent errors. This observable traces deviations from centro-symmetric morphologies. With the use of closure phases, we could recover interferometric images, albeit there is less phase information than amplitude values than with regular Fourier phases.</p>
+<figure>
+<p><img alt="fringes_webb" height="350" src="../Images3/closure_phases.png" width="700" />
+  </p>
+<figcaption> <strong>Figure 3. </strong> Diagram of closure phase extraction. The measured phases, &phi; <sub>i,j</sub>, are biased by telescope dependent errors, &phi;<sub>err</sub>. The triple product removes them.  </figcaption>
+</figure>
+<p>Tipically, the SAM data are stored in cubes composed by a sequence of frames. The raw observables are, thus, extracted frame by frame and the final ones are obtained through a weigthed average. Please, notice that when the data cubes are obtained, it is necessary to take into account the rotation of the parallactic angle. This should not vary more than a few degrees. Otherwise, by averaging the frames in a data cube will blur the interferometric fringes. Also, the model used by SAMPip corrects for the attenuation of the fringes' contrast due to broad-band filters used during the observations. Finally, it is important to mention that, in addition to the source's observations it is also necessary to observe a point-like object to calibrate the trasnfer function of the instrument. </p>
+<h1 id="2-example-of-the-use-of-sampip-with-the-jwst-user-manual">2. Example of the use of SAMPip with the JWST  (User Manual)</h1>
+<p><strong>SAMPip</strong> is included in this repository. The software consist in a series of Python scripts to perform the data reduction. We included a <mark>test.py</mark> script to load a simulated data as example for the reduction. This script setups the code according to the instrument requests. To exemplify the use of SAMPip, we include as example the setup used to analyze the data of the massive binary WR 137. The observational sequence and the full data analysis are described in <a href="https://arxiv.org/pdf/2311.15948.pdf">Lau et al. (2023)</a>.</p>
+<p>To reproduce the interferometric observables from the example included in this repository, it is as simple as <mark>clone</mark> SAMPip from the GitHub repository with the following command:</p>
+<pre><code class="language-bash">
+&gt;&gt; git clone https://github.com/cosmosz5/SAMPip.git
+
+</code></pre>
+<p>Inside the repository, there is a script that setup all the required parameters to run SAMPip. The script is called <mark>test.py</mark>. To run this code, simply type in the Terminal:</p>
+<pre><code class="language-bash">
+&gt;&gt; python test.py
+
+</code></pre>
+<p>The parameters included in <mark>test.py</mark> are described below: </p>
+<pre><code class="language-py">
+#######  The tolowing parameters are necessary to run SAMPip ##################
+mask_filename = '7holes_jwst_mask_corr.txt' #A text file with the mask geometry
+wave = 4.817e-06 #Central wavelength of the observations (meters)
+bandwidth = 0.298e-06 #Bandwidth of the observations (meters)
+hole_size = 0.82 #in meters
+imsize = 80 # in pixels
+px_scalex = 65.3249 #X-dimenssion pixel scale in mas
+px_scaley = 65.7226 #Y-dimenssion pixel scale in mas
+hole_geom = 'HEXAGON' #HEXAGON for the JWST
+inst = 'JWST' 
+arrname = 'DATA' ## This could be DATA or SIM. For the &quot;on-sky&quot; data use DATA
+rotation_angle = -0.36 ### In case the mask is not propely aligned with the position indicated in the manual
+oversample = 1.0 ## Number of times that you want to oversample the data. This is employed in simulations, not with real data. 
+
+scale_factor = [0.996, 0.999] #Small pixel scale correction
+center_factor = [0,0] #Centroid position, in case alignment is needed
+</code></pre>
+<p>Once the main parameters are setup, then, the main instructions are run to extract the observables. For this example, first the 3.8 &mu;m filter is run (for both science target and calibrator) and then the observables for the 4.8 &mu;m filter are obtained. The following lines extract the observables as described before:</p>
+<pre><code class="language-py">
+data_filename = 'data_WR137_bpfix_480.txt'
+source = 'WR137'
+sim_SAM.simSAM_PSF (data_filename, mask_filename,  wave, bandwidth, hole_size, px_scalex, px_scaley, imsize, hole_geom, source, inst, \
+arrname, rotation_angle, oversample, scale_factor, center_factor, affine=False)
+
+data_filename = 'data_cal_bpfix_480.txt'
+source = 'Cal'
+sim_SAM.simSAM_PSF (data_filename, mask_filename,  wave, bandwidth, hole_size, px_scalex, px_scaley, imsize, hole_geom, source, inst, \
+arrname, rotation_angle, oversample, scale_factor, center_factor, affine=False)
+
+## Here, we change the filter and bandpass:
+wave = 3.82650365041922e-06 
+bandwidth = 0.205e-06
+##
+
+data_filename = 'data_WR137_bpfix_380.txt'
+source = 'WR137'
+sim_SAM.simSAM_PSF (data_filename, mask_filename,  wave, bandwidth, hole_size, px_scalex, px_scaley, imsize, hole_geom, source, inst, \
+arrname, rotation_angle, oversample, scale_factor, center_factor, affine=False)
+
+data_filename = 'data_cal_bpfix_380.txt'
+source = 'Cal'
+sim_SAM.simSAM_PSF (data_filename, mask_filename,  wave, bandwidth, hole_size, px_scalex, px_scaley, imsize, hole_geom, source, inst, \
+arrname, rotation_angle, oversample, scale_factor, center_factor, affine=False)
+</code></pre>
+<p>The <a href="https://github.com/cosmosz5/CASSINI">Github</a> repository also contains the <mark>.txt</mark> files with the list of targets necessary for the reduction. As it was mentioned before, the format of the data are cubes with different frames that include the interferograms. Those files can be explored using the  <a href="https://sites.google.com/cfa.harvard.edu/saoimageds9" title="DS9 link">DS9 software</a>. After running the <mark>test.py</mark> script, the code will generate a series of <strong>.fits</strong> files for quality check purposes, together with the final <strong>OIFITS</strong> files with the extracted observables. The list of files created by the extraction of the observables are the following ones: </p>
+<pre><code class="language-markdown">
+1. CENTERED_*.fits files &gt; These are the centered input files. SAMPip does a fine adjustment of the interferogram centroid in the middle of the pixel grid (this option is not yet available but the files are produced).
+2. MODEL_interferogram_*.fits &gt; These are the models of the interferograms produced by the code. They should be quite similar to the input data files. We can use the MODEL files to inspect (quickly) visually how good is our fringe modeling (i.e., visibility extraction) 
+3. MODEL_interferogram_windowed_*.fits &gt; These are the models of the interferograms produced by the code but they are windowed. Only the valid pixels for the model extraction have values different from zero. 
+4. MODEL_residuals+*.fits &gt; These .fits files show the residuals between our fringe model and the input data.
+5. MTF.fits &gt; This .fits file includes the Mutual Trsfer Funcion of the interferogram
+6. PSF.fits &gt; This .fits file includes the model of the interferogram produced solely by the geometry of the non-redundant mask
+7. cube_bl.fits &gt; This .fits file contains the cube of the different interference pattern produce by each pair of pin-holes in the non-redundant mask. 
+8. hexa.fits &gt; This file contains the diffraction pattern of the pin-hole geometry
+9. hexagon.fits &gt; This file contains the geometry of the pin-hole mask
+10. WINDDAT_*.fits &gt; These files are the windowed input data sets used for the model extraction
+11. SIM_DATA_uncalib.*.fits &gt; These are the OFITIS files with the reduced data. They are in a standard OIFITS format and includes all the interferometric observables extracted with SAMPip. 
+
+</code></pre>
+<p>The code also produces a series of <mark>.png</mark> files to show the quality of the observables' extraction. Figs. 4 and 5 show the distribution values (from the frames in a data cube) of the squared visibilities and closure phases for the 3.8 &mu;m filter for WR 137. The mean value, &sigma; and the standard deviation, &sigma; per baseline and triplet. </p>
+<figure>
+<p><img alt="fringes_webb" height="400" src="../Images3/v2_corr_F380M_Cal_BPfix_calints.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 4. </strong> Distribution of squared visibility values per baseline (21) for the NIRISS-JWST observations of WR 137 (filter F380M).   </figcaption>
+</figure>
+<figure>
+<p><img alt="fringes_webb" height="500" src="../Images3/cp_corr_F380M_Cal_BPfix_calints.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 5. </strong> Distribution of closure phases values per triplet (35) for the NIRISS-JWST observations of WR 137 (filter F380M). </figcaption>
+</figure>
+<p>SAMPip also produces a plot with the uncalibrated squared visibilities and closure phases versus spatial frequency. Fig. 6 displays an example of those observables for WR 137. Notice how the precision in the data are quite small (sometimes even below the symbol size). This is because of the superb quality of the JWST data. </p>
+<figure>
+<p><img alt="fringes_webb" height="400" src="../Images3/WR137_uncalibrated_observables.pdf" width="900" />
+  </p>
+<figcaption> <strong>Figure 6. </strong> Squared visibilities and Closure phases per spatial frequency of WR 137 (filter F380M) extracted with SAMPip. </figcaption>
+</figure>
+<p>In order to check if the extraction of the observables is correct the user should check the intermediate <mark>.fits </mark> files produced by SAMPip. A quick way of deduce the quality of the observables' extraction is to look at the residuals plots to look for systematic trends. Also, one could check the <mark> MODEL_interferogram_*.fits </mark> file. If it is similar to the structure of the interferogram in the data (e.g., size, asymmetries, position, etc), it also indicates that the extraction is correct. Fig. 7 displays the data and model fits side by side. It can be easily checked that both of them exhibits the same structure. </p>
+<figure>
+<p><img alt="fringes_webb" height="350" src="../Images3/model_data.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 7. </strong> The left panel shows the interferogram of one of the frames in the JWST-NIRISS/SAM data cube. The right panel shows the model generated with SAMPip from which the observables are extracted. Notice thow the structure is quite similar in both panels. The scale si the same in both of them. There are a few pixels in the MODEL panel that differ from the DATA, this is because those are bad pixels filtered out by SAMPip during modeling.  </figcaption>
+</figure>
+<p>Once the <mark> RAW OIFITS </mark> data are obtained, it is necessary to calibrate them. For this, we use the script called <strong>calib_sam_obo.py</strong>. It contains a few instructions (see below) that calls the main calibration routine. The calibration process divide the raw science squared visibilities by the calibrator ones and subtract the calibrator's closure phases from the data ones. Fig. 8 displays the calibrated observables. </p>
+<pre><code class="language-py">
+#### Calibration routine script ####
+
+input_sci_path = '' # Path of the science OIFITS files
+input_cal_path = '' # Path of the calibrator OIFITS files
+calibrator_filename = 'cal_data_bpfix_380.txt' # .txt file with the Calibrator data files
+science_filename = 'sci_data_bpfix_380.txt' # .txt file with the Science data files
+cal_name = 'Cal_new' # Prefix of the calibrated OIFITS data
+
+[sc_files] = readcol.readcol(input_sci_path+science_filename, twod=False)
+[cal_files] = readcol.readcol(input_cal_path+calibrator_filename, twod=False)
+for i in range(len(sc_files)):
+    sc_dat = sc_files[i]
+    cal_dat = cal_files[0]
+    delta = 1000.0  ### Hours
+    calibrate_SAM_obo.calibrate_SAM(input_sci_path, input_cal_path, sc_dat, cal_dat, cal_name, delta)
+    print('done')
+
+</code></pre>
+<figure>
+<p><img alt="fringes_webb" height="400" src="../Images3/WR137_CALIBRATED_observables.pdf" width="900" />
+  </p>
+<figcaption> <strong>Figure 8. </strong> Calibrated squared visibilities and closure phases versus spatial frequency. Notice that the visibility values decrease with spatial frequency, showing that the target is resolved. The closure phases varies from -20 to 20 degrees, which indicates that the target is not centro-symmetric.  </figcaption>
+</figure>
+<p>The calibrated data can be used, thus, for imaging. Here, we just included the resulting the reconstructed images of WR 137. For comparison Fig. 9 shows the reconstructions obtained from different software and extractions obtained from different pipelines. SAMPip extractions performs similar to other pipelines that use different methods. The full scientific exploitation of the data and characterization of NIRISS-SAM are described in: <a href="https://arxiv.org/pdf/2311.15948.pdf">Lau et al. (2023)</a>, <a href="https://iopscience.iop.org/article/10.1088/1538-3873/ac9a74/pdf">Kammerer et al. (2023)</a>, and <a href="https://ui.adsabs.harvard.edu/abs/2023PASP..135a5003S/abstract">Sivaramakrishnan et al. (2023)</a></p>
+<figure>
+<p><img alt="fringes_webb" height="700" src="../Images3/reconstructed_ims.png" width="900" />
+  </p>
+<figcaption> <strong>Figure 9. </strong> Images of the morphology of WR 137. The different panels show different extraction of the observables with three pipelines, including SAMPip; and three different reconstructions. The quality of the images is comparable with the different extractions. The yellow ellipse at the bottom of the upper-rightmost panel correspond to the maxium resolution element of the interferometer.  </figcaption>
+</figure>
+<p>Sometimes different data sets are reduced. They can be combined with the <mark>oi_combine.fits</mark> python routine. It is a very simple script which  call <mark>oi_merge.fits</mark> and <mark>js_oifits.fits</mark>. Those are two routines which reads the different data sets and write a combined OIFITS file with them. <mark>oi_merge.fits</mark> and <mark>js_oifits.fits</mark> are also included in the root directory of <strong>CASSINI/SAMPip</strong>. These two routines are also used by the during the data reduction. To combine the extracted OIFITS data, it is neccesary to create a .txt file with the oifits filenames to be combined. An example of the <mark>oi_combine.fits</mark> content is the following one: </p>
+<pre><code class="language-py">
+from readcol import *
+
+cd = True 
+if cd == True:
+    import oi_merge as oi_merge
+else:
+    import oi_merge2 as oi_merges#
+import importlib
+importlib.reload(oi_merge)
+
+data = 'combine_data_tot.txt' ## Text file with the OIFITS files to be combined 
+[files] = readcol(data, twod=False)
+merged = oi_merge.oi_merge(files)
+merged.write('COMB_JWST_SAM_tot.fits') ## Output: COMBINED OIFITS file
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Author - Joel Sanchez Bermudez (Instituto de Astronomia de la Universidad Nacional Autonoma de Mexico). This code has been developed with funding from the UNAM PAPIIT project IA 101220 and from the Mexico's National Council of Humanities, Science and Technology (CONAHyCyT) “Ciencia de Frontera” project 263975</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../javascripts/mathjax.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
