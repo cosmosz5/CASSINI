@@ -1,4 +1,4 @@
-# Welcome to CASSINI - A project to develop image reconstruction tools based con Compressed sensing an Neural Networks 
+# Welcome to CASSINI - A project to develop image reconstruction tools based con Compressed Sensing, Principal Components and Neural Networks 
 
 <p align="center">
   <img width="800" height="400" src="im/disk1.png">
