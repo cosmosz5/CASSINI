@@ -148,8 +148,7 @@ sklearn
 This module contains tools to extract the Principal Components of a
 reconstructed image and of its Fourier transform. The main module to
 run the code is ` PCA_im.py `. The user can modify this script to
-adapt it to his/her necessities (see also [CASSINI-GRAVITY RCAR
-analysis](RCAR.md) for an additional example on how to use CASSINI-PCA). The user can run it on the Terminal by typing: 
+adapt it to his/her necessities (see also the folder <>R Car analysis</strong>) for an additional example on how to use CASSINI-PCA). The user can run it on the Terminal by typing: 
 
 ``` bash
 >> python PCA_im.py
