@@ -26,15 +26,23 @@ At infrared wavelengths, the atmosphere plays an important role for interferomet
 
 ## Project layout
 
-    CASSINI    # The main directory of the project
-    SAMPip/ # This directory contains the software to perform data reduction of Aperture Masking Data
-    CS_IM/ # This directory contains the software to image reconstruction of aperture masking data based on Compressed sensing 
-    CS_PCA/ # This directory contains the software tools to perform interferometric
-    CS_NN/ # This directory contains the software to perform image reconstruction based on Neural Networks (still under construction) 
+    CASSINI # The main directory of the project
+    SAMPip/ # This directory contains the software to perform data
+	# reduction of Aperture Masking Data. It also contains JWST SAM data
+	# on WR137 to run the example illustrated in this documentation
+	NN_imaging/ # This directory contains the software to perform
+    # image reconstruction using a Convotutional Neural Network called AUTOMAP
+    RCAR_analysis/ # This directory contains the software
+    # and tools used for analyzing GRAVITY-VLTI data of the AGB star R Car
+    CS_SAM/ # This directory contains the software tools to perform
+	# interferometric imaging based on Compressed Sensing 
+    CS_PCA/ # This directory contains the software to obtain the
+	# principal components of images and their corresponding Fourier
+	# transforms.  
     
 ## Installation 
 
-At this stage, there is no need for specific installation of the code. Eash sub-package is self-contained. To use each one of them, it is as simple as clone the main repository folder with the following command: 
+There is no need for specific installation of the code. Each sub-package is self-contained. To use each one of them, it is as simple as clone the main repository folder with the following command: 
 
 ``` bash
 >> git clone https://github.com/cosmosz5/CASSINI.git
@@ -43,19 +51,18 @@ At this stage, there is no need for specific installation of the code. Eash sub-
 However, each sub-package made use of the different Python modules available in the community. It is necessary that the user install them separately. Below, there is a description of the different requirements for each sub-module:
 
 ## Requirements 
-(all the CASSINI codes wowrk with Python 3.x)
+(all the CASSINI codes work with Python 3.x)
 
-### Python modules for CASSINI/CS_PCA
 
-The main module to run the code is <mark>PCA_im.py</mark>. This script defines the input parameters and invoke the necesary code to run the PCA analysis. The user can modify this script to adapt it to his/her necessities. The user can run it on the Terminal by typing: 
+### Python modules for CASSINI/SAMPip
+
+The main module to run the code is ` test.py `. This script defines the input parameters and invoke the necesary code to run SAMPip. The user can modify this script to adapt it to his/her necessities. The user can run it on the Terminal by typing: 
 
 ``` bash
->> python PCA_im.py
+>> python test.py
 ```
 
-
-
-Required packages installed:
+Required packages:
 
 ``` bash
 numpy
@@ -66,33 +73,59 @@ skimage
 pylops
 ```
 
-### Python modules for CASSINI/SAMpip
+` test.py` finishes in debug mode. To get out of it, the user should type "q" in the Terminal.
 
-The main module to run the code is <mark>test.py</mark>. This script defines the input parameters and invoke the necesary code to run the Aperture Masking data reduction. The user can modify this script to adapt it to his/her necessities. The user can run it on the Terminal by typing: 
+### Python modules for CASSINI/NN_imaging
+
+The main module to run the code is
+` AUTOMAP_keras_4.py `. This script run the Convolutional
+Neural Network for imaging. The user can modify this script to adapt
+it to his/her necessities. The user can run it on the Terminal (to
+start the trainning process) by typing: 
 
 ``` bash
->> python test.py
-``` 
+>> python python AUTOMAP_keras_4.py --mode train --epochs 300 --batch-size 128
+
+```
+
+Required packages:
+
+``` bash
+plaidml
+keras
+astropy
+numpy
+argparse
+math
+oitools
+```
+
+
+
+### Python modules for CASSINI/RCAR_analysis
+
+This module include all the tools developed to analyze parametric
+models and reconstructed images for the analysis of the morphology of
+AGB stars. This module includes a `Python jupyter notebook `  called
+` RCar_analysis.ipynb ` to run
+all the examples included in the repository. 
 
 Required packages installed:
 
 ``` bash
-numpy 
 astropy
-itertools
-skimage
+emcee
+lmfit
 matplotlib
-pandas
-datetime
+numpy
+Open CV
 scipy
-image_registration
+sklearn
 ```
-At the moment, <mark>test.py</mark> finishes in a debug mode. To get out of it, the user should type "q" in the terminal
 
+### Python modules for CASSINI/CS_SAM
 
-### Python modules for CASSINI/LASSO
-
-The main module to run the code is CS_JWST_v1.py. This script defines the input parameters and invoke the necesary code to run the compressed sensins imaging. To run the code on CASSINI/LASSO it is necessary to have the DATABASE of ring models for the dictionary to work. A part of this database is included in the repository. However, due to space resctictions on GitHub, the complete version of the DATABASE can be found in the this [link](https://www.dropbox.com/sh/mtadpwbpns6nsvf/AABYHEQiMpuWPGvMvLqVLACVa?dl=0). The user can modify this script to adapt it to his/her necessities. The user can run it on the Terminal by typing: 
+The main module to run the code is ` CS_JWST_v1.py `. This script defines the input parameters and invoke the necesary code to run the compressed sensins imaging. To run the code on <strong>CASSINI/LASSO</strong> it is necessary to have the DATABASE of ring models for the dictionary to work. A part of this database is included in the repository. However, due to space resctictions on GitHub, the complete version of the DATABASE can be found in the this [link](https://www.dropbox.com/sh/mtadpwbpns6nsvf/AABYHEQiMpuWPGvMvLqVLACVa?dl=0). The user can modify this script to adapt it to his/her necessities. The user can run it on the Terminal by typing: 
 
 ``` bash
 >> python CS_JWST_v1.py
@@ -107,10 +140,33 @@ matplotlib
 pylab
 sklearn
 ```
-At the moment, <mark>CS_JWST_v1.py</mark> finishes in a debug mode. To get out of it, the user should type "q" in the terminal
+` CS_JWST_v1.py ` finishes in a debug mode. To get out of it, the user should type "q" in the terminal
+
+
+### Python modules for CASSINI/CS_PCA
+
+This module contains tools to extract the Principal Components of a
+reconstructed image and of its Fourier transform. The main module to
+run the code is ` PCA_im.py `. The user can modify this script to
+adapt it to his/her necessities (see also [CASSINI-GRAVITY RCAR
+analysis](RCAR.md) for an additional example on how to use CASSINI-PCA). The user can run it on the Terminal by typing: 
+
+``` bash
+>> python PCA_im.py
+``` 
+
+Required packages:
+
+``` bash
+cvxpy
+sklearn
+PyLops
+numpy
+```
 
 # DISCLAIMER
 
-This project has been developed with funding from the UNAM PAPIIT project IA 101220 and from the Mexico's National Council of Science and Technology (CONACyT) “Ciencia de Frontera” project 263975. All the scripts that compose CASSINI are open source under GNU License. For enquiries and/or contributions please  contact <mailto:joelsb@astro.unam.mx>
-
+This project has been developed with funding from the UNAM PAPIIT
+project IA 101220 and from the Mexico's National Council of
+Humanities, Science and Technology (CONACyT) “Ciencia de Frontera” project 263975. All the scripts that compose CASSINI are open source under GNU License. For enquiries and/or contributions please  contact <mailto:joelsb@astro.unam.mx>
 
