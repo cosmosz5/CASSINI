@@ -168,5 +168,5 @@ numpy
 
 This project has been developed with funding from the UNAM PAPIIT
 project IA 101220 and from the Mexico's National Council of
-Humanities, Science and Technology (CONACyT) “Ciencia de Frontera” project 263975. All the scripts that compose CASSINI are open source under GNU License. For enquiries and/or contributions please  contact <mailto:joelsb@astro.unam.mx>
+Humanities, Science and Technology (CONAHCyT) “Ciencia de Frontera” project 263975. All the scripts that compose CASSINI are open source under GNU License. For enquiries and/or contributions please  contact <mailto:joelsb@astro.unam.mx>
 
